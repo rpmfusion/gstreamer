@@ -7,7 +7,7 @@ Version: 0.8.9
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 3 
+Release: 4 
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -165,6 +165,9 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} 1>/dev/null 2>&1
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Thu Mar 17 2005 Colin Walters <walters@redhat.com> 0.8.9-4
+- Rebuild to make it through beehive
+
 * Wed Mar 03 2005 John (J5) Palmieri <johnp@redhat.com> 0.8.9-3
 - add gstreamer-0.8.9-cast-fix.patch which casts the variable
   before sending it into the macro
