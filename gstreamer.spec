@@ -2,12 +2,12 @@
 %define _libxml2	2.4.9
 
 Name: gstreamer
-Version: 0.8.8
+Version: 0.8.9
 # keep in sync with the VERSION.  gstreamer can append a .0.1 to CVS snapshots.
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 2
+Release: 1
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -163,6 +163,9 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} 1>/dev/null 2>&1
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Wed Feb  9 2005 Matthias Clasen <mclasen@redhat.com> 0.8.9-1
+- Update to 0.8.9
+
 * Mon Jan 10 2005 Colin Walters <walters@redhat.com> 0.8.8-2
 - Updated gstreamer-0.8.8-lib64.patch which does not rename
   tools such as gst-launch to e.g. gst-launch-i686.
