@@ -2,12 +2,12 @@
 %define _libxml2	2.4.9
 
 Name: gstreamer
-Version: 0.8.1
+Version: 0.8.3
 # keep in sync with the VERSION.  gstreamer can append a .0.1 to CVS snapshots.
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 5
+Release: 1
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -16,7 +16,6 @@ Source: http://gstreamer.net/releases/%{version}/src/%{name}-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 # There was problems generating pdf and postscript:
 Patch1: gstreamer-0.7.5-nops.patch
-Patch2: gstreamer-0.8.1-cpufix.patch
 
 Requires: glib2 >= %_glib2
 Requires: libxml2 >= %_libxml2
@@ -88,7 +87,6 @@ in the future.
 %prep
 %setup -q
 %patch1 -p1 -b .nops
-%patch2 -p1 -b .cpufix
 
 # openjade doesn't support xml catalogs, so we have to patch in the right dtd reference
 find -name "*.xml" | xargs grep -l "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" | xargs perl -pi -e 's#http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd#/usr/share/sgml/docbook/xml-dtd-4.2-1.0-24/docbookx.dtd#g'
@@ -162,6 +160,11 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Wed Jun 23 2004 Colin Walters <walters@redhat.com> 0.8.3-1
+- Update to 0.8.3, now that I am convinced it is safe.
+- Remove backported cpufix patch.
+- "cvs remove" a bunch of obsoleted patches.
+
 * Mon Jun 21 2004 Colin Walters <walters@redhat.com> 0.8.1-5
 - BuildRequire gettext-devel
 
