@@ -2,7 +2,7 @@
 %define _libxml2	2.4.9
 
 Name: gstreamer
-Version: 0.8.6
+Version: 0.8.7
 # keep in sync with the VERSION.  gstreamer can append a .0.1 to CVS snapshots.
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
@@ -161,6 +161,9 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Wed Oct  6 2004 Alexander Larsson <alexl@redhat.com> - 0.8.7-1
+- update to 0.8.7
+
 * Tue Oct  5 2004 Alexander Larsson <alexl@redhat.com> - 0.8.6-1
 - update to 0.8.6
 - Put the real lib .so symlinks in the -devel package
