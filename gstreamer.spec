@@ -7,7 +7,7 @@ Version: 0.8.7
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 5
+Release: 6
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -15,6 +15,7 @@ URL: http://gstreamer.net/
 Source: http://gstreamer.net/releases/%{version}/src/%{name}-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 # There was problems generating pdf and postscript:
+Patch0: gstreamer-0.8.7-lib64.patch
 Patch1: gstreamer-0.7.5-nops.patch
 Patch2: gstreamer-0.8.7-escapeuri.patch
 
@@ -89,6 +90,7 @@ in the future.
 
 %prep
 %setup -q
+%patch0 -p1 -b .lib64
 %patch1 -p1 -b .nops
 %patch2 -p1 -b .escape-uri
 
@@ -140,6 +142,7 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin}
 %{_libdir}/gstreamer-%{majmin}/*.so*
 %{_libdir}/*.so.*
 %{_bindir}/*-%{majmin}
+%{_libexecdir}/*-%{majmin}
 %{_mandir}/man1/*-%{majmin}.1.gz
 
 %files devel
@@ -156,10 +159,16 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin}
 %defattr(-, root, root)
 %{_bindir}/*
 %exclude %{_bindir}/*-%{majmin}
+%{_libexecdir}/*
+%exclude %{_libexecdir}/*-%{majmin}
 %{_mandir}/man1/*
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Tue Nov 09 2004 Colin Walters <walters@redhat.com> 0.8.7-6
+- UNBUILT
+- Add initial lib64 patch.
+
 * Tue Oct 26 2004 Colin Walters <walters@redhat.com> 0.8.7-5
 - Do not override docdir (126860)
 - Remove datadir/gstreamer-%{majmin}/doc from files list
