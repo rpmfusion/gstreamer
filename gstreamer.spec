@@ -2,12 +2,12 @@
 %define _libxml2	2.4.9
 
 Name: gstreamer
-Version: 0.8.5
+Version: 0.8.6
 # keep in sync with the VERSION.  gstreamer can append a .0.1 to CVS snapshots.
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 2
+Release: 1
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -137,9 +137,7 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %doc AUTHORS COPYING README TODO ABOUT-NLS REQUIREMENTS DOCBUILDING 
 %dir %{_libdir}/gstreamer-%{majmin}
 %dir %{_localstatedir}/cache/gstreamer-%{majmin}
-%{_libdir}/gstreamer-%{majmin}/*.so.*
-%{_libdir}/libgstreamer-%{majmin}.so
-%{_libdir}/libgstcontrol-%{majmin}.so
+%{_libdir}/gstreamer-%{majmin}/*.so*
 %{_libdir}/*.so.*
 %{_bindir}/*-%{majmin}
 %{_mandir}/man1/*-%{majmin}.1.gz
@@ -148,7 +146,8 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %defattr(-, root, root)
 %dir %{_includedir}/%{name}-%{majmin}
 %{_includedir}/%{name}-%{majmin}/*
-%{_libdir}/gstreamer-%{majmin}/*.so
+%{_libdir}/libgstreamer-%{majmin}.so
+%{_libdir}/libgstcontrol-%{majmin}.so
 %{_libdir}/pkgconfig/gstreamer*.pc
 %{_datadir}/aclocal/*
 %{_datadir}/gtk-doc/html/*
@@ -162,6 +161,11 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Tue Oct  5 2004 Alexander Larsson <alexl@redhat.com> - 0.8.6-1
+- update to 0.8.6
+- Put the real lib .so symlinks in the -devel package
+- Don't put .so plugins in the -devel package
+
 * Tue Sep 28 2004 Colin Walters <walters@redhat.com> 0.8.5-2
 - Move .so symlinks to -devel package
 
