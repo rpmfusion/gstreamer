@@ -7,7 +7,7 @@ Version: 0.8.7
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 2
+Release: 3
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -161,6 +161,9 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Wed Oct 13 2004 Colin Walters <walters@redhat.com> 0.8.7-3
+- Quote %%configure in changelog (135412)
+
 * Thu Oct 07 2004 Colin Walters <walters@redhat.com> 0.8.7-2
 - BuildRequire gettext-devel
 
@@ -281,7 +284,7 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 - remove "tools" sub-rpm, this is not needed at all
 
 * Thu Jan 30 2003 Jonathan Blandford <jrb@redhat.com> 0.5.2-7
-- stopped using %configure so we need to pass in all the args
+- stopped using %%configure so we need to pass in all the args
 
 * Mon Jan 27 2003 Jonathan Blandford <jrb@redhat.com>
 - remove -Werror explicitly as the configure macro isn't working.
