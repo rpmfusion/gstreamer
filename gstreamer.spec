@@ -1,23 +1,22 @@
-%define _glib2		2.0.1
+%define _glib2		2.3.0
 %define _libxml2	2.4.0
-
 ## exclude arches that don't work for now.
 #ExcludeArch: x86_64 ia64 alpha s390 s390x
 
 Name: gstreamer
-Version: 0.6.3
+Version: 0.7.3
 # keep in sync with the VERSION.  gstreamer can append a .0.1 to CVS snapshots.
-%define major  0.6
+%define major  0.7
+%define po_package %{name}-%{major}
 
-Release: 1
+Release: 3
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
 URL: http://gstreamer.net/
-Source: http://gstreamer.net/releases/%{version}/src/%{name}-%{version}.tar.gz
+Source: http://gstreamer.net/releases/%{version}/src/%{name}-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-Patch: gstreamer-0.5.0-fixdocbook.patch
-#Patch2: gstreamer-0.5.2-nowerror.patch
+Patch1: gstreamer-0.5.2-s390.patch
 Patch3: gstreamer-0.6.0-ppc64.patch
 
 Requires: glib2 >= %_glib2
@@ -84,8 +83,8 @@ in the future.
 
 %prep
 %setup -q
-#%patch2 -p1 -b .nowerror
-%patch3 -p1 -b .ppc64
+%patch1 -p1 -b .s390
+#%patch3 -p1 -b .ppc64
 
 ## x86_64 is x86 too!
 perl -pi -e 's/xi\?86 \| k\?\)/xi?86 | k? | *86_64)/g' configure aclocal.m4
@@ -115,6 +114,8 @@ make %{?_smp_mflags}
 /bin/rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 /bin/rm -f $RPM_BUILD_ROOT%{_libdir}/libgstmedia-info*.so.0.0.0
 
+%find_lang %{po_package}
+
 %clean
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
 
@@ -134,7 +135,7 @@ env DISPLAY= %{_bindir}/gst-register --gst-mask=0 > /dev/null 2> /dev/null
 #rm -f %{_datadir}/devhelp/books/gstreamer
 #rm -f %{_datadir}/devhelp/books/gstreamer-libs
 
-%files
+%files -f %{po_package}.lang
 %defattr(-, root, root)
 %doc AUTHORS COPYING README TODO COPYING.LIB ABOUT-NLS REQUIREMENTS DOCBUILDING RELEASE 
 %dir %{_libdir}/gstreamer-%{major}
@@ -165,26 +166,25 @@ env DISPLAY= %{_bindir}/gst-register --gst-mask=0 > /dev/null 2> /dev/null
 
 %files tools
 %defattr(-, root, root)
-%{_bindir}/gst-complete
-%{_bindir}/gst-compprep
-%{_bindir}/gst-feedback
-%{_bindir}/gst-inspect
-%{_bindir}/gst-launch
-%{_bindir}/gst-md5sum
-%{_bindir}/gst-register
-%{_bindir}/gst-xmllaunch
-%{_bindir}/gst-typefind
-%{_mandir}/man1/gst-complete.*
-%{_mandir}/man1/gst-compprep.*
-%{_mandir}/man1/gst-feedback.*
-%{_mandir}/man1/gst-inspect.*
-%{_mandir}/man1/gst-launch.*
-%{_mandir}/man1/gst-md5sum.*
-%{_mandir}/man1/gst-register.*
-%{_mandir}/man1/gst-xmllaunch.*
-%{_mandir}/man1/gst-typefind.*
+%{_bindir}/gst-complete-%{major}
+%{_bindir}/gst-compprep-%{major}
+%{_bindir}/gst-feedback-%{major}
+%{_bindir}/gst-inspect-%{major}
+%{_bindir}/gst-launch-%{major}
+%{_bindir}/gst-md5sum-%{major}
+%{_bindir}/gst-register-%{major}
+%{_bindir}/gst-xmllaunch-%{major}
+%{_bindir}/gst-typefind-%{major}
+%{_bindir}/gst-xmlinspect-%{major}
+%{_mandir}/man1/*
 
 %changelog
+* Wed Jan 28 2004 Alexander Larsson <alexl@redhat.com> 0.7.3-3
+- add s390 patch
+
+* Tue Jan 27 2004 Jonathan Blandford <jrb@redhat.com> 0.7.3-1
+- new version
+
 * Thu Sep 11 2003 Alexander Larsson <alexl@redhat.com> 0.6.3-1
 - Update to 0.6.3 (gnome 2.4 final)
 
