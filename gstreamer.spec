@@ -137,7 +137,7 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %doc AUTHORS COPYING README TODO ABOUT-NLS REQUIREMENTS DOCBUILDING 
 %dir %{_libdir}/gstreamer-%{majmin}
 %dir %{_localstatedir}/cache/gstreamer-%{majmin}
-%{_libdir}/gstreamer-%{majmin}/*.so*
+%{_libdir}/gstreamer-%{majmin}/*.so.*
 %{_libdir}/libgstreamer-%{majmin}.so
 %{_libdir}/libgstcontrol-%{majmin}.so
 %{_libdir}/*.so.*
@@ -148,6 +148,7 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %defattr(-, root, root)
 %dir %{_includedir}/%{name}-%{majmin}
 %{_includedir}/%{name}-%{majmin}/*
+%{_libdir}/gstreamer-%{majmin}/*.so
 %{_libdir}/pkgconfig/gstreamer*.pc
 %{_datadir}/aclocal/*
 %{_datadir}/gtk-doc/html/*
@@ -161,6 +162,9 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Tue Sep 28 2004 Colin Walters <walters@redhat.com> 0.8.5-2
+- Move .so symlinks to -devel package
+
 * Tue Aug 16 2004 Colin Walters <walters@redhat.com> 0.8.5-1
 - Update to 0.8.5
 
