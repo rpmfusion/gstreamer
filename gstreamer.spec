@@ -7,7 +7,7 @@ Version: 0.8.7
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 3
+Release: 4
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -16,6 +16,7 @@ Source: http://gstreamer.net/releases/%{version}/src/%{name}-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 # There was problems generating pdf and postscript:
 Patch1: gstreamer-0.7.5-nops.patch
+Patch2: gstreamer-0.8.7-escapeuri.patch
 
 Requires: glib2 >= %_glib2
 Requires: libxml2 >= %_libxml2
@@ -89,6 +90,7 @@ in the future.
 %prep
 %setup -q
 %patch1 -p1 -b .nops
+%patch2 -p1 -b .escape-uri
 
 # openjade doesn't support xml catalogs, so we have to patch in the right dtd reference
 find -name "*.xml" | xargs grep -l "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" | xargs perl -pi -e 's#http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd#/usr/share/sgml/docbook/xml-dtd-4.2-1.0-25/docbookx.dtd#g'
@@ -161,6 +163,9 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Wed Oct 20 2004 Colin Walters <walters@redhat.com> 0.8.7-4
+- Add URI escaping patch from Ronald (136507)
+
 * Wed Oct 13 2004 Colin Walters <walters@redhat.com> 0.8.7-3
 - Quote %%configure in changelog (135412)
 
