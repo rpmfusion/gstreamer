@@ -5,11 +5,11 @@
 #ExcludeArch: x86_64 ia64 alpha s390 s390x
 
 Name: gstreamer
-Version: 0.6.0
+Version: 0.6.3
 # keep in sync with the VERSION.  gstreamer can append a .0.1 to CVS snapshots.
 %define major  0.6
 
-Release: 4
+Release: 1
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -18,6 +18,7 @@ Source: http://gstreamer.net/releases/%{version}/src/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Patch: gstreamer-0.5.0-fixdocbook.patch
 #Patch2: gstreamer-0.5.2-nowerror.patch
+Patch3: gstreamer-0.6.0-ppc64.patch
 
 Requires: glib2 >= %_glib2
 Requires: libxml2 >= %_libxml2
@@ -84,14 +85,16 @@ in the future.
 %prep
 %setup -q
 #%patch2 -p1 -b .nowerror
+%patch3 -p1 -b .ppc64
 
 ## x86_64 is x86 too!
 perl -pi -e 's/xi\?86 \| k\?\)/xi?86 | k? | *86_64)/g' configure aclocal.m4
-perl -pi -e 's/-Werror//g' configure libs/ext/cothreads/configure libs/ext/cothreads/configure.ac
+perl -pi -e 's/-Werror//g' configure configure.ac libs/ext/cothreads/configure libs/ext/cothreads/configure.ac
+NOCONFIGURE=1 ./autogen.sh
+
 %build
 
 ## FIXME should re-enable the docs build when it works
-./autogen.sh
 %configure --disable-plugin-builddir --disable-tests --disable-examples \
 	--disable-docs-build --with-html-dir=$RPM_BUILD_ROOT%{_datadir}/gtk-doc/html \
 	--enable-debug
@@ -146,6 +149,7 @@ env DISPLAY= %{_bindir}/gst-register --gst-mask=0 > /dev/null 2> /dev/null
 %dir %{_includedir}/%{name}-%{major}
 %{_includedir}/%{name}-%{major}/*
 %{_libdir}/pkgconfig/gstreamer*.pc
+%{_datadir}/aclocal/*
 #%{_datadir}/devhelp/specs/%{name}-%{major}.devhelp
 #%{_datadir}/devhelp/specs/%{name}-libs-%{major}.devhelp
 #%{_datadir}/gtk-doc/html/gstreamer-%{major}/*html
@@ -169,6 +173,7 @@ env DISPLAY= %{_bindir}/gst-register --gst-mask=0 > /dev/null 2> /dev/null
 %{_bindir}/gst-md5sum
 %{_bindir}/gst-register
 %{_bindir}/gst-xmllaunch
+%{_bindir}/gst-typefind
 %{_mandir}/man1/gst-complete.*
 %{_mandir}/man1/gst-compprep.*
 %{_mandir}/man1/gst-feedback.*
@@ -177,8 +182,21 @@ env DISPLAY= %{_bindir}/gst-register --gst-mask=0 > /dev/null 2> /dev/null
 %{_mandir}/man1/gst-md5sum.*
 %{_mandir}/man1/gst-register.*
 %{_mandir}/man1/gst-xmllaunch.*
+%{_mandir}/man1/gst-typefind.*
 
 %changelog
+* Thu Sep 11 2003 Alexander Larsson <alexl@redhat.com> 0.6.3-1
+- Update to 0.6.3 (gnome 2.4 final)
+
+* Tue Aug 19 2003 Alexander Larsson <alexl@redhat.com> 0.6.2-6
+- 0.6.2
+
+* Wed Jun 04 2003 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
+* Mon Feb 17 2003 Elliot Lee <sopwith@redhat.com> 0.6.0-5
+- ppc64 patch
+
 * Wed Feb 12 2003 Bill Nottingham <notting@redhat.com> 0.6.0-4
 - fix group
 
