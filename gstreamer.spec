@@ -1,23 +1,21 @@
 %define _glib2		2.3.0
-%define _libxml2	2.4.0
-## exclude arches that don't work for now.
-#ExcludeArch: x86_64 ia64 alpha s390 s390x
+%define _libxml2	2.4.9
 
 Name: gstreamer
-Version: 0.7.3
+Version: 0.8.0
 # keep in sync with the VERSION.  gstreamer can append a .0.1 to CVS snapshots.
-%define major  0.7
-%define po_package %{name}-%{major}
+%define majmin  0.8
+%define po_package %{name}-%{majmin}
 
-Release: 3
+Release: 1
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
 URL: http://gstreamer.net/
 Source: http://gstreamer.net/releases/%{version}/src/%{name}-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-Patch1: gstreamer-0.5.2-s390.patch
-Patch3: gstreamer-0.6.0-ppc64.patch
+# There was problems generating pdf and postscript:
+Patch1: gstreamer-0.7.5-nops.patch
 
 Requires: glib2 >= %_glib2
 Requires: libxml2 >= %_libxml2
@@ -25,19 +23,22 @@ Requires: popt > 1.6
 
 BuildRequires: glib2-devel >= %_glib2
 BuildRequires: libxml2-devel >= %_libxml2
-BuildRequires: bison
-BuildRequires: gtk-doc >= 0.7
+BuildRequires: bison flex
+BuildRequires: gtk-doc >= 1.1
 BuildRequires: zlib-devel
-BuildRequires: gtk-doc >= 0.7
 BuildRequires: popt > 1.6
-Prereq: /sbin/ldconfig gstreamer-tools
+BuildRequires: gettext
+Prereq: /sbin/ldconfig
 
 ### documentation requirements
 BuildRequires: openjade
 BuildRequires: python2
-BuildRequires: docbook-style-dsssl docbook-dtd31-sgml docbook-style-xsl
-BuildRequires: docbook-utils
+BuildRequires: docbook-style-dsssl
+BuildRequires: docbook-style-xsl
+BuildRequires: docbook-dtds
+BuildRequires: docbook-utils 
 BuildRequires: transfig xfig
+BuildRequires:  netpbm-progs
 
 %description
 GStreamer is a streaming-media framework, based on graphs of filters which
@@ -83,34 +84,37 @@ in the future.
 
 %prep
 %setup -q
-%patch1 -p1 -b .s390
-#%patch3 -p1 -b .ppc64
+%patch1 -p1 -b .nops
 
-## x86_64 is x86 too!
-perl -pi -e 's/xi\?86 \| k\?\)/xi?86 | k? | *86_64)/g' configure aclocal.m4
-perl -pi -e 's/-Werror//g' configure configure.ac libs/ext/cothreads/configure libs/ext/cothreads/configure.ac
+# openjade doesn't support xml catalogs, so we have to patch in the right dtd reference
+find -name "*.xml" | xargs grep -l "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" | xargs perl -pi -e 's#http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd#/usr/share/sgml/docbook/xml-dtd-4.2-1.0-24/docbookx.dtd#g'
+
+# The nopdf patch touches automake makefile sources
 NOCONFIGURE=1 ./autogen.sh
 
 %build
 
 ## FIXME should re-enable the docs build when it works
 %configure --disable-plugin-builddir --disable-tests --disable-examples \
-	--disable-docs-build --with-html-dir=$RPM_BUILD_ROOT%{_datadir}/gtk-doc/html \
+	 --with-cachedir=%{_localstatedir}/cache/gstreamer-%{majmin} \
+	--enable-docs-build --with-html-dir=$RPM_BUILD_ROOT%{_datadir}/gtk-doc/html \
 	--enable-debug
+
 
 make %{?_smp_mflags}
 
 %install  
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
-# adding devhelp stuff here for now, need to integrate better
-# when devhelp allows it
-#mkdir -p $RPM_BUILD_ROOT/%{_datadir}/devhelp/specs
-#cp $RPM_BUILD_DIR/%{name}-%{version}/docs/devhelp/*.devhelp $RPM_BUILD_ROOT/%{_datadir}/devhelp/specs
 
-%makeinstall
+# build documentation to a different location so it doesn't end up in
+# a gstreamer-devel-(version) dir and doesn't get deleted by %doc scripts
+%makeinstall docdir=$RPM_BUILD_ROOT%{_datadir}/gstreamer-%{majmin}/doc
 
-/bin/rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{major}/*.a
-/bin/rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{major}/*.la
+mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/gstreamer-%{majmin}
+
+/bin/rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majmin}/*.a
+/bin/rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majmin}/*.la
+/bin/rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 /bin/rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 /bin/rm -f $RPM_BUILD_ROOT%{_libdir}/libgstmedia-info*.so.0.0.0
 
@@ -121,64 +125,62 @@ make %{?_smp_mflags}
 
 %post
 /sbin/ldconfig
-env DISPLAY= %{_bindir}/gst-register --gst-mask=0 > /dev/null 2> /dev/null
-
-%post devel
-# adding devhelp links to work around different base not working
-#mkdir -p %{_datadir}/devhelp/books
-#ln -sf %{_datadir}/gtk-doc/html/gstreamer %{_datadir}/devhelp/books
-#ln -sf %{_datadir}/gtk-doc/html/gstreamer-libs %{_datadir}/devhelp/books
+env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 
 %postun -p /sbin/ldconfig
 
-%postun devel
-#rm -f %{_datadir}/devhelp/books/gstreamer
-#rm -f %{_datadir}/devhelp/books/gstreamer-libs
-
 %files -f %{po_package}.lang
 %defattr(-, root, root)
-%doc AUTHORS COPYING README TODO COPYING.LIB ABOUT-NLS REQUIREMENTS DOCBUILDING RELEASE 
-%dir %{_libdir}/gstreamer-%{major}
-%{_libdir}/gstreamer-%{major}/*.so*
-%{_libdir}/libgstreamer-%{major}.so
-%{_libdir}/libgstcontrol-%{major}.so
-%{_libdir}/*.a
+%doc AUTHORS COPYING README TODO COPYING.LIB ABOUT-NLS REQUIREMENTS DOCBUILDING 
+%dir %{_libdir}/gstreamer-%{majmin}
+%dir %{_localstatedir}/cache/gstreamer-%{majmin}
+%{_libdir}/gstreamer-%{majmin}/*.so*
+%{_libdir}/libgstreamer-%{majmin}.so
+%{_libdir}/libgstcontrol-%{majmin}.so
 %{_libdir}/*.so.*
+%{_bindir}/*-%{majmin}
+%{_mandir}/man1/*-%{majmin}.1.gz
 
 %files devel
 %defattr(-, root, root)
-%dir %{_includedir}/%{name}-%{major}
-%{_includedir}/%{name}-%{major}/*
+%dir %{_includedir}/%{name}-%{majmin}
+%{_includedir}/%{name}-%{majmin}/*
 %{_libdir}/pkgconfig/gstreamer*.pc
 %{_datadir}/aclocal/*
-#%{_datadir}/devhelp/specs/%{name}-%{major}.devhelp
-#%{_datadir}/devhelp/specs/%{name}-libs-%{major}.devhelp
-#%{_datadir}/gtk-doc/html/gstreamer-%{major}/*html
-#%{_datadir}/gtk-doc/html/gstreamer-%{major}/index.sgml
-#%{_datadir}/gtk-doc/html/gstreamer-libs-%{major}/*html
-#%{_datadir}/gtk-doc/html/gstreamer-libs-%{major}/index.sgml
-
-
-## FIXME disabled due to --disable-docs-build
-##%{_datadir}/gtk-doc/html/*
-##%{_datadir}/devhelp/specs/gstreamer.devhelp
-##%{_datadir}/devhelp/specs/gstreamer-libs.devhelp
+%{_datadir}/gtk-doc/html/*
+%{_datadir}/gstreamer-%{majmin}/doc
 
 %files tools
 %defattr(-, root, root)
-%{_bindir}/gst-complete-%{major}
-%{_bindir}/gst-compprep-%{major}
-%{_bindir}/gst-feedback-%{major}
-%{_bindir}/gst-inspect-%{major}
-%{_bindir}/gst-launch-%{major}
-%{_bindir}/gst-md5sum-%{major}
-%{_bindir}/gst-register-%{major}
-%{_bindir}/gst-xmllaunch-%{major}
-%{_bindir}/gst-typefind-%{major}
-%{_bindir}/gst-xmlinspect-%{major}
+%{_bindir}/*
+%exclude %{_bindir}/*-%{majmin}
 %{_mandir}/man1/*
+%exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Tue Mar 16 2004 Alex Larsson <alexl@redhat.com> 0.8.0-1
+- update to 0.8.0
+
+* Wed Mar 10 2004 Alexander Larsson <alexl@redhat.com> 0.7.6-1
+- update to 0.7.6
+
+* Thu Mar  4 2004 Jeremy Katz <katzj@redhat.com> - 0.7.5-2
+- fix plugin dir with respect to %%_lib
+
+* Tue Mar 02 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
+* Tue Feb 24 2004 Alexander Larsson <alexl@redhat.com> 0.7.5-1
+- update to 0.7.5
+- clean up specfile some
+- enable docs
+
+* Fri Feb 13 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
+* Wed Feb  4 2004 Bill Nottingham <notting@redhat.com> 0.7.3-4
+- fix %%post
+
 * Wed Jan 28 2004 Alexander Larsson <alexl@redhat.com> 0.7.3-3
 - add s390 patch
 
@@ -228,8 +230,8 @@ env DISPLAY= %{_bindir}/gst-register --gst-mask=0 > /dev/null 2> /dev/null
 - %post -p was wrong
 
 * Tue Dec 17 2002 Jonathan Blandford <jrb@redhat.com> 0.5.0-7
-- explicitly add %{_libdir}/libgstreamer-{major}.so
-- explicitly add %{_libdir}/libgstcontrol-{major}.so
+- explicitly add %{_libdir}/libgstreamer-{majmin}.so
+- explicitly add %{_libdir}/libgstcontrol-{majmin}.so
 
 * Mon Dec 16 2002 Jonathan Blandford <jrb@redhat.com>
 - bump release
