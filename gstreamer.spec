@@ -91,7 +91,7 @@ in the future.
 %patch1 -p1 -b .nops
 
 # openjade doesn't support xml catalogs, so we have to patch in the right dtd reference
-find -name "*.xml" | xargs grep -l "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" | xargs perl -pi -e 's#http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd#/usr/share/sgml/docbook/xml-dtd-4.2-1.0-24/docbookx.dtd#g'
+find -name "*.xml" | xargs grep -l "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" | xargs perl -pi -e 's#http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd#/usr/share/sgml/docbook/xml-dtd-4.2-1.0-25/docbookx.dtd#g'
 
 # The nopdf patch touches automake makefile sources
 NOCONFIGURE=1 ./autogen.sh
@@ -165,6 +165,7 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 - update to 0.8.6
 - Put the real lib .so symlinks in the -devel package
 - Don't put .so plugins in the -devel package
+- Correct docbook dtd version reference
 
 * Tue Sep 28 2004 Colin Walters <walters@redhat.com> 0.8.5-2
 - Move .so symlinks to -devel package
