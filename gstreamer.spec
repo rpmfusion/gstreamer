@@ -7,7 +7,7 @@ Version: 0.8.7
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 4
+Release: 5
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -111,9 +111,7 @@ make %{?_smp_mflags}
 %install  
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
 
-# build documentation to a different location so it doesn't end up in
-# a gstreamer-devel-(version) dir and doesn't get deleted by %doc scripts
-%makeinstall docdir=$RPM_BUILD_ROOT%{_datadir}/gstreamer-%{majmin}/doc
+%makeinstall
 
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/gstreamer-%{majmin}
 
@@ -130,7 +128,7 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/gstreamer-%{majmin}
 
 %post
 /sbin/ldconfig
-env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
+env DISPLAY= %{_bindir}/gst-register-%{majmin}
 
 %postun -p /sbin/ldconfig
 
@@ -153,7 +151,6 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %{_libdir}/pkgconfig/gstreamer*.pc
 %{_datadir}/aclocal/*
 %{_datadir}/gtk-doc/html/*
-%{_datadir}/gstreamer-%{majmin}/doc
 
 %files tools
 %defattr(-, root, root)
@@ -163,6 +160,10 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Tue Oct 26 2004 Colin Walters <walters@redhat.com> 0.8.7-5
+- Do not override docdir (126860)
+- Remove datadir/gstreamer-%{majmin}/doc from files list
+
 * Wed Oct 20 2004 Colin Walters <walters@redhat.com> 0.8.7-4
 - Add URI escaping patch from Ronald (136507)
 
