@@ -7,7 +7,7 @@ Version: 0.8.9
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 1
+Release: 2 
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -163,6 +163,9 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} 1>/dev/null 2>&1
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Wed Mar 03 2005 John (J5) Palmieri <johnp@redhat.com> 0.8.9-2 
+- rebuild with gcc 4.0
+
 * Wed Feb  9 2005 Matthias Clasen <mclasen@redhat.com> 0.8.9-1
 - Update to 0.8.9
 
