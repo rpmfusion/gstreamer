@@ -2,7 +2,7 @@
 %define _libxml2	2.4.9
 
 Name: gstreamer
-Version: 0.8.0
+Version: 0.8.1
 # keep in sync with the VERSION.  gstreamer can append a .0.1 to CVS snapshots.
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
@@ -28,6 +28,7 @@ BuildRequires: gtk-doc >= 1.1
 BuildRequires: zlib-devel
 BuildRequires: popt > 1.6
 BuildRequires: gettext
+BuildRequires: flex
 Prereq: /sbin/ldconfig
 
 ### documentation requirements
@@ -131,7 +132,7 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 
 %files -f %{po_package}.lang
 %defattr(-, root, root)
-%doc AUTHORS COPYING README TODO COPYING.LIB ABOUT-NLS REQUIREMENTS DOCBUILDING 
+%doc AUTHORS COPYING README TODO ABOUT-NLS REQUIREMENTS DOCBUILDING 
 %dir %{_libdir}/gstreamer-%{majmin}
 %dir %{_localstatedir}/cache/gstreamer-%{majmin}
 %{_libdir}/gstreamer-%{majmin}/*.so*
@@ -158,6 +159,22 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Mon Apr 15 2004 Colin Walters <walters@redhat.com> 0.8.1-1
+- Update to 0.8.1
+- Delete registry patches which have been upstreamed
+- COPYING.LIB is gone
+
+* Mon Apr 05 2004 Colin Walters <walters@redhat.com> 0.8.0-4
+- I have discovered that it is helpful, when adding patches
+  to a package, to actually add the "%patchN" lines.
+
+* Mon Mar 22 2004 Colin Walters <walters@redhat.com> 0.8.0-3
+- Add BuildRequires on flex
+- Add patch to avoid calling opendir() on files
+
+* Mon Mar 22 2004 Colin Walters <walters@redhat.com> 0.8.0-2
+- Add patch to avoid setting mtime on registry
+
 * Tue Mar 16 2004 Alex Larsson <alexl@redhat.com> 0.8.0-1
 - update to 0.8.0
 
