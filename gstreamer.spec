@@ -2,12 +2,12 @@
 %define _libxml2	2.4.9
 
 Name: gstreamer
-Version: 0.8.7
+Version: 0.8.8
 # keep in sync with the VERSION.  gstreamer can append a .0.1 to CVS snapshots.
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 6
+Release: 1
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -17,7 +17,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 # There was problems generating pdf and postscript:
 Patch0: gstreamer-0.8.7-lib64.patch
 Patch1: gstreamer-0.7.5-nops.patch
-Patch2: gstreamer-0.8.7-escapeuri.patch
 
 Requires: glib2 >= %_glib2
 Requires: libxml2 >= %_libxml2
@@ -92,7 +91,6 @@ in the future.
 %setup -q
 %patch0 -p1 -b .lib64
 %patch1 -p1 -b .nops
-%patch2 -p1 -b .escape-uri
 
 # openjade doesn't support xml catalogs, so we have to patch in the right dtd reference
 find -name "*.xml" | xargs grep -l "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" | xargs perl -pi -e 's#http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd#/usr/share/sgml/docbook/xml-dtd-4.2-1.0-25/docbookx.dtd#g'
@@ -130,7 +128,7 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/gstreamer-%{majmin}
 
 %post
 /sbin/ldconfig
-env DISPLAY= %{_bindir}/gst-register-%{majmin}
+env DISPLAY= %{_bindir}/gst-register-%{majmin} 1>/dev/null 2>&1
 
 %postun -p /sbin/ldconfig
 
@@ -165,6 +163,11 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin}
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Mon Jan 03 2005 Colin Walters <walters@redhat.com> 0.8.8-1
+- Update to 0.8.8
+- Remove upstreamed escape-uris patch
+- Readd redirection of register output to /dev/null
+
 * Tue Nov 09 2004 Colin Walters <walters@redhat.com> 0.8.7-6
 - Add initial lib64 patch.
 
