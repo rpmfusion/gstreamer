@@ -7,7 +7,7 @@ Version: 0.8.3
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 1
+Release: 3
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -28,6 +28,8 @@ BuildRequires: gtk-doc >= 1.1
 BuildRequires: zlib-devel
 BuildRequires: popt > 1.6
 BuildRequires: gettext
+# for autopoint, should be depended on by gettext-devel
+BuildRequires: cvs 
 BuildRequires: flex
 BuildRequires: ghostscript
 Prereq: /sbin/ldconfig
@@ -160,6 +162,12 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Tue Jul 05 2004 Colin Walters <walters@redhat.com> 0.8.3-3
+- Another rebuild to placate beehive!
+
+* Tue Jul 05 2004 Colin Walters <walters@redhat.com> 0.8.3-2
+- Rebuild to placate beehive
+
 * Wed Jun 23 2004 Colin Walters <walters@redhat.com> 0.8.3-1
 - Update to 0.8.3, now that I am convinced it is safe.
 - Remove backported cpufix patch.
