@@ -166,7 +166,6 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin}
 
 %changelog
 * Tue Nov 09 2004 Colin Walters <walters@redhat.com> 0.8.7-6
-- UNBUILT
 - Add initial lib64 patch.
 
 * Tue Oct 26 2004 Colin Walters <walters@redhat.com> 0.8.7-5
