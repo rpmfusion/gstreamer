@@ -95,7 +95,7 @@ in the future.
 %patch2 -p1 -b .cast-fix
 
 # openjade doesn't support xml catalogs, so we have to patch in the right dtd reference
-find -name "*.xml" | xargs grep -l "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" | xargs perl -pi -e 's#http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd#/usr/share/sgml/docbook/xml-dtd-4.2-1.0-25/docbookx.dtd#g'
+find -name "*.xml" | xargs grep -l "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" | xargs perl -pi -e 's#http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd#/usr/share/sgml/docbook/xml-dtd-4.2-1.0-26/docbookx.dtd#g'
 
 # The nopdf patch touches automake makefile sources
 NOCONFIGURE=1 ./autogen.sh
@@ -168,6 +168,7 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} 1>/dev/null 2>&1
 * Wed Mar 03 2005 John (J5) Palmieri <johnp@redhat.com> 0.8.9-3
 - add gstreamer-0.8.9-cast-fix.patch which casts the variable
   before sending it into the macro
+- update openjade hack to refrence xml-dtd-4.2-1.0-26
 
 * Wed Mar 03 2005 John (J5) Palmieri <johnp@redhat.com> 0.8.9-2 
 - rebuild with gcc 4.0
