@@ -7,7 +7,7 @@ Version: 0.8.5
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 1
+Release: 2
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
