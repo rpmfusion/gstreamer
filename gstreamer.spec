@@ -7,7 +7,7 @@ Version: 0.8.9
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 2 
+Release: 3 
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -17,6 +17,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 # There was problems generating pdf and postscript:
 Patch0: gstreamer-0.8.8-lib64.patch
 Patch1: gstreamer-0.7.5-nops.patch
+Patch2: gstreamer-0.8.9-cast-fix.patch
 
 Requires: glib2 >= %_glib2
 Requires: libxml2 >= %_libxml2
@@ -91,6 +92,7 @@ in the future.
 %setup -q
 %patch0 -p1 -b .lib64
 %patch1 -p1 -b .nops
+%patch2 -p1 -b .cast-fix
 
 # openjade doesn't support xml catalogs, so we have to patch in the right dtd reference
 find -name "*.xml" | xargs grep -l "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" | xargs perl -pi -e 's#http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd#/usr/share/sgml/docbook/xml-dtd-4.2-1.0-25/docbookx.dtd#g'
@@ -163,6 +165,10 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} 1>/dev/null 2>&1
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Wed Mar 03 2005 John (J5) Palmieri <johnp@redhat.com> 0.8.9-3
+- add gstreamer-0.8.9-cast-fix.patch which casts the variable
+  before sending it into the macro
+
 * Wed Mar 03 2005 John (J5) Palmieri <johnp@redhat.com> 0.8.9-2 
 - rebuild with gcc 4.0
 
