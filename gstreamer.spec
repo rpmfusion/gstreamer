@@ -7,7 +7,7 @@ Version: 0.8.7
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 1
+Release: 2
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -27,7 +27,7 @@ BuildRequires: bison flex
 BuildRequires: gtk-doc >= 1.1
 BuildRequires: zlib-devel
 BuildRequires: popt > 1.6
-BuildRequires: gettext
+BuildRequires: gettext-devel
 # for autopoint, should be depended on by gettext-devel
 BuildRequires: cvs 
 BuildRequires: flex
@@ -161,13 +161,16 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Tue Sep 28 2004 Colin Walters <walters@redhat.com> 0.8.7-2
+- BuildRequire gettext-devel
+
 * Wed Oct  6 2004 Alexander Larsson <alexl@redhat.com> - 0.8.7-1
 - update to 0.8.7
 
 * Tue Oct  5 2004 Alexander Larsson <alexl@redhat.com> - 0.8.6-1
 - update to 0.8.6
 - Put the real lib .so symlinks in the -devel package
-- Don't put .so plugins in the -devel package
+- Do not put .so plugins in the -devel package
 - Correct docbook dtd version reference
 
 * Tue Sep 28 2004 Colin Walters <walters@redhat.com> 0.8.5-2
