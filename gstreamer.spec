@@ -161,7 +161,7 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} > /dev/null 2> /dev/null
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
-* Tue Sep 28 2004 Colin Walters <walters@redhat.com> 0.8.7-2
+* Thu Oct 07 2004 Colin Walters <walters@redhat.com> 0.8.7-2
 - BuildRequire gettext-devel
 
 * Wed Oct  6 2004 Alexander Larsson <alexl@redhat.com> - 0.8.7-1
