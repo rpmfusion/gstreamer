@@ -7,7 +7,7 @@ Version: 0.8.8
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 1
+Release: 2
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -15,7 +15,7 @@ URL: http://gstreamer.net/
 Source: http://gstreamer.net/releases/%{version}/src/%{name}-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 # There was problems generating pdf and postscript:
-Patch0: gstreamer-0.8.7-lib64.patch
+Patch0: gstreamer-0.8.8-lib64.patch
 Patch1: gstreamer-0.7.5-nops.patch
 
 Requires: glib2 >= %_glib2
@@ -163,6 +163,10 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} 1>/dev/null 2>&1
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Mon Jan 10 2005 Colin Walters <walters@redhat.com> 0.8.8-2
+- Updated gstreamer-0.8.8-lib64.patch which does not rename
+  tools such as gst-launch to e.g. gst-launch-i686.
+
 * Mon Jan 03 2005 Colin Walters <walters@redhat.com> 0.8.8-1
 - Update to 0.8.8
 - Remove upstreamed escape-uris patch
