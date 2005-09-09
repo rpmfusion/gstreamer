@@ -2,7 +2,7 @@
 %define _libxml2	2.4.9
 
 Name: gstreamer
-Version: 0.8.10
+Version: 0.8.11
 # keep in sync with the VERSION.  gstreamer can append a .0.1 to CVS snapshots.
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
@@ -35,6 +35,7 @@ BuildRequires: cvs
 BuildRequires: flex
 BuildRequires: ghostscript
 Prereq: /sbin/ldconfig
+
 
 ### documentation requirements
 BuildRequires: openjade
@@ -90,12 +91,9 @@ in the future.
 
 %prep
 %setup -q
-%patch0 -p1 -b .lib64
+#%patch0 -p1 -b .lib64
 %patch1 -p1 -b .nops
 %patch2 -p1 -b .cast-fix
-
-# openjade doesn't support xml catalogs, so we have to patch in the right dtd reference
-find -name "*.xml" | xargs grep -l "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" | xargs perl -pi -e 's#http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd#/usr/share/sgml/docbook/xml-dtd-4.2-1.0-26/docbookx.dtd#g'
 
 # The nopdf patch touches automake makefile sources
 NOCONFIGURE=1 ./autogen.sh
@@ -165,6 +163,10 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} 1>/dev/null 2>&1
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Fri Sep 09 2005 John (J5) Palmieri <johnp@redhat.com> 0.8.11-1
+- Update to upstream 0.8.11
+- take out docbook hack
+
 * Tue May 03 2005 John (J5) Palmieri <johnp@redhat.com> 0.8.10-1
 - Update to upstream 0.8.10
 
