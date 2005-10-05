@@ -19,6 +19,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Patch0: gstreamer-0.8.8-lib64.patch
 Patch1: gstreamer-0.7.5-nops.patch
 Patch2: gstreamer-0.8.9-cast-fix.patch
+Patch3: gstreamer-0.8.11-gmodule-no-export.patch
 
 Requires: glib2 >= %_glib2
 Requires: libxml2 >= %_libxml2
@@ -96,12 +97,14 @@ in the future.
 #%patch0 -p1 -b .lib64
 %patch1 -p1 -b .nops
 %patch2 -p1 -b .cast-fix
+%patch3 -p1 -b .gmodule-no-export
 
 # openjade doesn't support xml catalogs, so we have to patch in the right dtd reference
 find -name "*.xml" | xargs grep -l "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" | xargs perl -pi -e "s#http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd#%{DOCBOOK_DTD_PATH}#g"
 
 # The nopdf patch touches automake makefile sources
-NOCONFIGURE=1 ./autogen.sh
+# The gmodule-no-export patch touches configure.ac
+./autogen.sh
 
 %build
 
