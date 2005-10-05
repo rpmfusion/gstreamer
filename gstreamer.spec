@@ -8,7 +8,7 @@ Version: 0.8.11
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 1 
+Release: 2 
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -19,6 +19,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Patch0: gstreamer-0.8.8-lib64.patch
 Patch1: gstreamer-0.7.5-nops.patch
 Patch2: gstreamer-0.8.9-cast-fix.patch
+# http://bugzilla.gnome.org/show_bug.cgi?id=318031
 Patch3: gstreamer-0.8.11-gmodule-no-export.patch
 
 Requires: glib2 >= %_glib2
