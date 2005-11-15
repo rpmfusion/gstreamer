@@ -138,6 +138,7 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/gstreamer-%{majmin}
 %post
 /sbin/ldconfig
 env DISPLAY= %{_bindir}/gst-register-%{majmin} 1>/dev/null 2>&1
+exit 0
 
 %postun -p /sbin/ldconfig
 
@@ -169,6 +170,9 @@ env DISPLAY= %{_bindir}/gst-register-%{majmin} 1>/dev/null 2>&1
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Tue Nov 15 2005 Florian La Roche <laroche@redhat.com> 0.8.11-2
+- silence post script
+
 * Fri Sep 09 2005 John (J5) Palmieri <johnp@redhat.com> 0.8.11-1
 - Update to upstream 0.8.11
 - We still need the docbook hack - make it a bit more flexible
