@@ -8,7 +8,7 @@ Version: 0.8.11
 %define majmin  0.8
 %define po_package %{name}-%{majmin}
 
-Release: 2 
+Release: 2 .1
 Summary: GStreamer streaming media framework runtime.
 Group: Applications/Multimedia
 License: LGPL
@@ -170,6 +170,9 @@ exit 0
 %exclude %{_mandir}/man1/*-%{majmin}.1.gz
 
 %changelog
+* Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
+- rebuilt
+
 * Tue Nov 15 2005 Florian La Roche <laroche@redhat.com> 0.8.11-2
 - silence post script
 
