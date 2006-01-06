@@ -5,7 +5,7 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.0
+Version: 	0.10.1
 Release: 	1
 Summary: 	GStreamer streaming media framework runtime
 
@@ -197,6 +197,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Fri Jan 06 2006 John (J5) Palmieri <johnp@redhat.com> - 0.10.1-1
+- New upstream version
+
 * Fri Dec 16 2005 Thomas Vander Stichele <thomas at apestaart dot org>
 - 0.10.0-1
 - rebuilt for Fedora Core Development
