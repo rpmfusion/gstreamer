@@ -16,6 +16,8 @@ Source: 	http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:	gstreamer-tools >= %{version}
+Requires:	gstreamer-plugins-base
+Requires:	gstreamer-plugins-good
 
 BuildRequires: 	glib2-devel >= %{_glib2}
 BuildRequires: 	libxml2-devel >= %{_libxml2}
