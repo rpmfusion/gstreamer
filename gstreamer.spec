@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.3
-Release: 	2
+Release: 	3
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -18,6 +18,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:	gstreamer-tools >= %{version}
 Requires:	gstreamer-plugins-base
 Requires:	gstreamer-plugins-good
+# superceded by the two packages above
+Obsoletes:	gstreamer-plugins
 
 BuildRequires: 	glib2-devel >= %{_glib2}
 BuildRequires: 	libxml2-devel >= %{_libxml2}
@@ -199,6 +201,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Tue Feb 14 2006 Rik van Riel <riel@redhat.com> - 0.10-3-3
+- Obsolete gstreamer-plugins (#181296)
+
 * Mon Feb 13 2006 Christopher Aillon <caillon@redhat.com> - 0.10.3-2
 - Rebuild
 
