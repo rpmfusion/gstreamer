@@ -146,14 +146,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/gst-feedback-%{majorminor}
 %{_bindir}/gst-inspect-%{majorminor}
 %{_bindir}/gst-launch-%{majorminor}
-%{_bindir}/gst-md5sum-%{majorminor}
 %{_bindir}/gst-typefind-%{majorminor}
 %{_bindir}/gst-xmlinspect-%{majorminor}
 %{_bindir}/gst-xmllaunch-%{majorminor}
 %{_mandir}/man1/gst-feedback-%{majorminor}.*
 %{_mandir}/man1/gst-inspect-%{majorminor}.*
 %{_mandir}/man1/gst-launch-%{majorminor}.*
-%{_mandir}/man1/gst-md5sum-%{majorminor}.*
 %{_mandir}/man1/gst-typefind-%{majorminor}.*
 %{_mandir}/man1/gst-xmlinspect-%{majorminor}.*
 %{_mandir}/man1/gst-xmllaunch-%{majorminor}.*
@@ -163,7 +161,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/gst-feedback
 %{_bindir}/gst-inspect
 %{_bindir}/gst-launch
-%{_bindir}/gst-md5sum
 %{_bindir}/gst-typefind
 %{_bindir}/gst-xmlinspect
 %{_bindir}/gst-xmllaunch
