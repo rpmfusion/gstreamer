@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.8
-Release: 	1
+Release: 	2
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -198,6 +198,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Tue Jun 13 2006 Matthias Clasen <mclasen@redhat.com> - 0.10.8-2
+- Rebuild
+
 * Tue Jun 13 2006 Matthias Clasen <mclasen@redhat.com> - 0.10.8-1
 - Update to 0.10.8
 
