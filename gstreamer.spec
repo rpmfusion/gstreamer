@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.8
-Release: 	2
+Release: 	3
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -111,7 +111,7 @@ make
 rm -rf $RPM_BUILD_ROOT
 
 # Install doc temporarily in order to be included later by rpm
-%makeinstall docdir="`pwd`/installed-doc"
+make install docdir="`pwd`/installed-doc" DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang gstreamer-%{majorminor}
 # Clean out files that should not be part of the rpm. 
@@ -198,6 +198,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Wed Jun 28 2006 Karsten Hopp <karsten@redhat.de> 0.10.8-3
+- remove RPATH pointing to RPM_BUILD_ROOT (#196870)
+
 * Tue Jun 13 2006 Matthias Clasen <mclasen@redhat.com> - 0.10.8-2
 - Rebuild
 
