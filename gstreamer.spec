@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.8
-Release: 	3
+Release: 	3.1
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -198,6 +198,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Wed Jul 12 2006 Jesse Keating <jkeating@redhat.com> - sh: line 0: fg: no job control
+- rebuild
+
 * Wed Jun 28 2006 Karsten Hopp <karsten@redhat.de> 0.10.8-3
 - remove RPATH pointing to RPM_BUILD_ROOT (#196870)
 
