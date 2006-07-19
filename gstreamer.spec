@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.8
-Release: 	3.1
+Release: 	3.2
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -17,7 +17,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:	gstreamer-tools >= %{version}
 Requires:	gstreamer-plugins-base
-Requires:	gstreamer-plugins-good
+#Requires:	gstreamer-plugins-good
 # superceded by the two packages above
 Obsoletes:	gstreamer-plugins
 
@@ -198,7 +198,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
-* Wed Jul 12 2006 Jesse Keating <jkeating@redhat.com> - sh: line 0: fg: no job control
+* Wed Jul 19 2006 Matthias Clasen <mclasen@redhat.com> - 0.10.8-3.2
+- Temporarily break the dependency cycle with gsteamer-plugins-good
+
+* Wed Jul 12 2006 Jesse Keating <jkeating@redhat.com> - 0.10.8-3.1
 - rebuild
 
 * Wed Jun 28 2006 Karsten Hopp <karsten@redhat.de> 0.10.8-3
