@@ -13,6 +13,7 @@ Group: 		Applications/Multimedia
 License: 	LGPL
 URL:		http://gstreamer.freedesktop.org/
 Source: 	http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.bz2
+Patch0:		gstreamer-0.10.9-docs.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:	gstreamer-tools >= %{version}
@@ -93,6 +94,7 @@ with different major/minor versions of GStreamer.
 
 %prep
 %setup -q -n gstreamer-%{version}
+%patch0 -p1 -b .docs
 
 %build
 # 0.10.0: manuals do not build due to an openjade error; disable for now

@@ -1,0 +1,18 @@
+--- gstreamer-0.10.9/docs/Makefile.in.docs	2006-07-27 21:18:06.000000000 -0400
++++ gstreamer-0.10.9/docs/Makefile.in	2006-07-27 21:18:43.000000000 -0400
+@@ -376,12 +376,9 @@
+ sharedstatedir = @sharedstatedir@
+ sysconfdir = @sysconfdir@
+ target_alias = @target_alias@
+-@ENABLE_GTK_DOC_FALSE@SUBDIRS_GTK_DOC = 
+-@ENABLE_GTK_DOC_TRUE@SUBDIRS_GTK_DOC = gst libs
+-@ENABLE_PLUGIN_DOCS_FALSE@SUBDIRS_PLUGIN_DOCS = 
+-@ENABLE_PLUGIN_DOCS_TRUE@SUBDIRS_PLUGIN_DOCS = plugins
+-@ENABLE_DOCBOOK_FALSE@SUBDIRS_DOCBOOK = 
+-@ENABLE_DOCBOOK_TRUE@SUBDIRS_DOCBOOK = faq manual pwg
++SUBDIRS_GTK_DOC = gst libs
++SUBDIRS_PLUGIN_DOCS = plugins
++SUBDIRS_DOCBOOK = faq manual pwg
+ BUILT_SOURCES = version.entities
+ SUBDIRS = design $(SUBDIRS_DOCBOOK) $(SUBDIRS_GTK_DOC) $(SUBDIRS_PLUGIN_DOCS)
+ DIST_SUBDIRS = design gst libs plugins faq manual pwg slides xsl
