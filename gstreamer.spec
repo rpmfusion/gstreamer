@@ -5,8 +5,8 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.9
-Release: 	2
+Version: 	0.10.10
+Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -200,6 +200,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Mon Oct 23 2006 Matthias Clasen <mclasen@redhat.com> - 0.10.10-1
+- Update to 0.10.10
+
 * Thu Jul 27 2006 Matthias Clasen <mclasen@redhat.com> - 0.10.9-2
 - Disable gtk-doc to fix multilib conflicts
 
