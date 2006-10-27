@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.10
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -35,19 +35,20 @@ BuildRequires:	gettext
 BuildRequires:	gcc-c++
 
 ### documentation requirements
-BuildRequires:  python2
-BuildRequires:  openjade
-BuildRequires:  jadetex
-BuildRequires:	libxslt
-BuildRequires:  docbook-style-dsssl
-BuildRequires:  docbook-style-xsl
-BuildRequires:  docbook-utils
-BuildRequires:	transfig
-BuildRequires:  xfig
-BuildRequires:  netpbm-progs
-BuildRequires:  tetex-dvips
-BuildRequires:  ghostscript
-BuildRequires:  PyXML
+### not needed currrently
+# BuildRequires:  python2
+# BuildRequires:  openjade
+# BuildRequires:  jadetex
+# BuildRequires:	libxslt
+# BuildRequires:  docbook-style-dsssl
+# BuildRequires:  docbook-style-xsl
+# BuildRequires:  docbook-utils
+# BuildRequires:	transfig
+# BuildRequires:  xfig
+# BuildRequires:  netpbm-progs
+# BuildRequires:  tetex-dvips
+# BuildRequires:  ghostscript
+# BuildRequires:  PyXML
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -113,7 +114,7 @@ make
 rm -rf $RPM_BUILD_ROOT
 
 # Install doc temporarily in order to be included later by rpm
-make install docdir="`pwd`/installed-doc" DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang gstreamer-%{majorminor}
 # Clean out files that should not be part of the rpm. 
@@ -151,12 +152,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/gst-typefind-%{majorminor}
 %{_bindir}/gst-xmlinspect-%{majorminor}
 %{_bindir}/gst-xmllaunch-%{majorminor}
-%{_mandir}/man1/gst-feedback-%{majorminor}.*
-%{_mandir}/man1/gst-inspect-%{majorminor}.*
-%{_mandir}/man1/gst-launch-%{majorminor}.*
-%{_mandir}/man1/gst-typefind-%{majorminor}.*
-%{_mandir}/man1/gst-xmlinspect-%{majorminor}.*
-%{_mandir}/man1/gst-xmllaunch-%{majorminor}.*
+
+%doc %{_mandir}/man1/gst-feedback-%{majorminor}.*
+%doc %{_mandir}/man1/gst-inspect-%{majorminor}.*
+%doc %{_mandir}/man1/gst-launch-%{majorminor}.*
+%doc %{_mandir}/man1/gst-typefind-%{majorminor}.*
+%doc %{_mandir}/man1/gst-xmlinspect-%{majorminor}.*
+%doc %{_mandir}/man1/gst-xmllaunch-%{majorminor}.*
 
 %files -n gstreamer-tools
 %defattr(-, root, root, -)
@@ -169,7 +171,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-, root, root, -)
-# %doc installed-doc/*
 %dir %{_includedir}/gstreamer-%{majorminor}
 %dir %{_includedir}/gstreamer-%{majorminor}/gst
 %{_includedir}/gstreamer-%{majorminor}/gst/*.h
@@ -200,6 +201,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Fri Oct 27 2006 Matthias Clasen <mclasen@redhat.com> - 0.10.10-2
+- Cleanups
+- Attempt to fix multilib conflicts
+
 * Mon Oct 23 2006 Matthias Clasen <mclasen@redhat.com> - 0.10.10-1
 - Update to 0.10.10
 
