@@ -5,8 +5,8 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.10
-Release: 	2%{?dist}
+Version: 	0.10.11
+Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -201,6 +201,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Tue Dec 12 2006 Matthias Clasen <mclasen@redhat.com> - 0.10.11-1
+- Update to 0.10.11
+
 * Fri Oct 27 2006 Matthias Clasen <mclasen@redhat.com> - 0.10.10-2
 - Cleanups
 - Attempt to fix multilib conflicts
