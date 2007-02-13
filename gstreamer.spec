@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.11
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -17,10 +17,6 @@ Patch0:		gstreamer-0.10.9-docs.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:	gstreamer-tools >= %{version}
-Requires:	gstreamer-plugins-base
-Requires:	gstreamer-plugins-good
-# superceded by the two packages above
-Obsoletes:	gstreamer-plugins
 
 BuildRequires: 	glib2-devel >= %{_glib2}
 BuildRequires: 	libxml2-devel >= %{_libxml2}
@@ -201,6 +197,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Tue Feb 13 2007 - Bastien Nocera <bnocera@redhat.com> - 0.10.11-2
+- Remove Requires on packages that BuildRequire us
+
 * Tue Dec 12 2006 Matthias Clasen <mclasen@redhat.com> - 0.10.11-1
 - Update to 0.10.11
 
