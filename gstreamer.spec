@@ -5,8 +5,8 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.11
-Release: 	2%{?dist}
+Version: 	0.10.12
+Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -197,6 +197,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Thu Mar 08 2007 - Bastien Nocera <bnocera@redhat.com> - 0.10.12-1
+- Update to 0.10.12
+
 * Tue Feb 13 2007 - Bastien Nocera <bnocera@redhat.com> - 0.10.11-2
 - Remove Requires on packages that BuildRequire us
 
