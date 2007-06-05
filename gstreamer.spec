@@ -6,14 +6,13 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.13
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
 License: 	LGPL
 URL:		http://gstreamer.freedesktop.org/
 Source: 	http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.bz2
-Patch0:		gstreamer-0.10.9-docs.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:	gstreamer-tools >= %{version}
@@ -91,7 +90,6 @@ with different major/minor versions of GStreamer.
 
 %prep
 %setup -q -n gstreamer-%{version}
-%patch0 -p1 -b .docs
 
 %build
 # 0.10.0: manuals do not build due to an openjade error; disable for now
@@ -197,6 +195,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Tue Jun 05 2007 - Bastien Nocera <bnocera@redhat.com> - 0.10.13-2
+- Remove upstreamed docs patch
+
 * Tue Jun 05 2007 - Bastien Nocera <bnocera@redhat.com> - 0.10.13-1
 - Update to 0.10.13
 
