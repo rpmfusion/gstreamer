@@ -5,7 +5,7 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.13
+Version: 	0.10.14
 Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
@@ -195,6 +195,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Sat Aug 04 2007 - Bastien Nocera <bnocera@redhat.com> - 0.10.14-1
+- Update to 0.10.14
+
 * Tue Jun 05 2007 - Bastien Nocera <bnocera@redhat.com> - 0.10.13-2
 - Remove upstreamed docs patch
 
