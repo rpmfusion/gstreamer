@@ -60,6 +60,7 @@ Group: 		Development/Libraries
 Requires: 	%{name} = %{version}-%{release}
 Requires: 	glib2-devel >= %{_glib2}
 Requires: 	libxml2-devel >= %{_libxml2}
+Requires:	check-devel
 
 %description devel
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -195,6 +196,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Tue Aug 14 2007 Matthias Clasen <mclasen@redhat.com> - 0.10.14-2
+- Require check-devel (#251956)
+
 * Sat Aug 04 2007 - Bastien Nocera <bnocera@redhat.com> - 0.10.14-1
 - Update to 0.10.14
 
