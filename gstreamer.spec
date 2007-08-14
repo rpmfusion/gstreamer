@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.14
-Release: 	2%{?dist}
+Release: 	3%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -196,7 +196,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
-* Tue Aug 14 2007 Matthias Clasen <mclasen@redhat.com> - 0.10.14-2
+* Tue Aug 14 2007 Matthias Clasen <mclasen@redhat.com> - 0.10.14-3
 - Require check-devel (#251956)
 
 * Sat Aug 04 2007 - Bastien Nocera <bnocera@redhat.com> - 0.10.14-1
