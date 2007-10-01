@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.14
-Release: 	3%{?dist}
+Release: 	4%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -16,6 +16,8 @@ Source: 	http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:	gstreamer-tools >= %{version}
+# gst-feedback uses these
+Requires:	which, pkgconfig
 
 BuildRequires: 	glib2-devel >= %{_glib2}
 BuildRequires: 	libxml2-devel >= %{_libxml2}
@@ -196,6 +198,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Mon Oct  1 2007 Matthias Clasen <mclasen@redhat.com> - 0.10.14-4
+- Add missing Requires (#312671)
+
 * Tue Aug 14 2007 Matthias Clasen <mclasen@redhat.com> - 0.10.14-3
 - Require check-devel (#251956)
 
