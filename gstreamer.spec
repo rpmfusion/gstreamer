@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.17
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -198,6 +198,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Mon Feb 18 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 0.10.17-2
+- Autorebuild for GCC 4.3
+
 * Wed Jan 30 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.17-1
 - Update to 0.10.17
 
