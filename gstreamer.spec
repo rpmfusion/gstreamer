@@ -96,6 +96,7 @@ with different major/minor versions of GStreamer.
 
 %build
 # 0.10.0: manuals do not build due to an openjade error; disable for now
+export CFLAGS=-fno-strict-aliasing
 %configure \
   --with-package-name='Fedora Core gstreamer package' \
   --with-package-origin='http://download.fedora.redhat.com/fedora' \
