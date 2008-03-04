@@ -5,8 +5,8 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.17
-Release: 	2%{?dist}
+Version: 	0.10.17.2
+Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -198,6 +198,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
 %changelog
+* Tue Mar 04 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.17.2-1
+- Update to 0.10.17.2 pre-release
+
 * Mon Feb 18 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 0.10.17-2
 - Autorebuild for GCC 4.3
 
