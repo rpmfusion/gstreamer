@@ -5,7 +5,7 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.17.2
+Version: 	0.10.18
 Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
@@ -30,6 +30,10 @@ BuildRequires:	gettext
 
 # because AM_PROG_LIBTOOL was used in configure.ac
 BuildRequires:	gcc-c++
+
+# For the GStreamer RPM provides
+Patch1:		gstreamer-inspect-rpm-format.patch
+Source1:	gstreamer.prov
 
 ### documentation requirements
 ### not needed currrently
@@ -94,6 +98,10 @@ with different major/minor versions of GStreamer.
 %prep
 %setup -q -n gstreamer-%{version}
 
+pushd tools/
+%patch1 -p0 -b .rpm-provides
+popd
+
 %build
 # 0.10.0: manuals do not build due to an openjade error; disable for now
 %configure \
@@ -122,6 +130,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 # Create empty cache directory
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/gstreamer-%{majorminor}
+# Add the provides script
+install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_libdir}/rpm/gstreamer.prov
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -197,7 +207,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-libs-%{majorminor}/*
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
 
+%{_libdir}/rpm/gstreamer.prov
+
 %changelog
+* Wed Mar 19 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.18-1
+- Update to 0.10.18
+- Add patch to gst-inspect to generate RPM provides
+- Add RPM find-provides script
+
 * Tue Mar 04 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.17.2-1
 - Update to 0.10.17.2 pre-release
 
