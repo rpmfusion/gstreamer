@@ -6,11 +6,11 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.19
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
-License: 	LGPL
+License: 	LGPLv2+
 URL:		http://gstreamer.freedesktop.org/
 Source: 	http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -210,6 +210,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/rpm/gstreamer.prov
 
 %changelog
+* Wed May 21 2008 - Tom "spot" Callaway <tcallawa@redhat.com> - 0.10.19-2
+- fix license tag
+
 * Fri Apr 04 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.19-1
 - Update to 0.10.19
 
