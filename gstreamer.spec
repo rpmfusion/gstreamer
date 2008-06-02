@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.19
-Release: 	2%{?dist}
+Release: 	3%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -36,20 +36,19 @@ Patch1:		gstreamer-inspect-rpm-format.patch
 Source1:	gstreamer.prov
 
 ### documentation requirements
-### not needed currrently
-# BuildRequires:  python2
-# BuildRequires:  openjade
-# BuildRequires:  jadetex
-# BuildRequires:	libxslt
-# BuildRequires:  docbook-style-dsssl
-# BuildRequires:  docbook-style-xsl
-# BuildRequires:  docbook-utils
-# BuildRequires:	transfig
-# BuildRequires:  xfig
-# BuildRequires:  netpbm-progs
-# BuildRequires:  tetex-dvips
-# BuildRequires:  ghostscript
-# BuildRequires:  PyXML
+BuildRequires:  python2
+BuildRequires:  openjade
+BuildRequires:  jadetex
+BuildRequires:	libxslt
+BuildRequires:  docbook-style-dsssl
+BuildRequires:  docbook-style-xsl
+BuildRequires:  docbook-utils
+BuildRequires:	transfig
+BuildRequires:  xfig
+BuildRequires:  netpbm-progs
+BuildRequires:  tetex-dvips
+BuildRequires:  ghostscript
+BuildRequires:  PyXML
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -107,8 +106,8 @@ popd
 %configure \
   --with-package-name='Fedora Core gstreamer package' \
   --with-package-origin='http://download.fedora.redhat.com/fedora' \
+  --enable-gtk-doc \
   --enable-debug \
-  --disable-gtk-doc --disable-docbook \
   --disable-tests --disable-examples
 
 #make %{?_smp_mflags}
@@ -123,7 +122,6 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang gstreamer-%{majorminor}
 # Clean out files that should not be part of the rpm. 
-mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/gstreamer-%{majorminor}
 rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/*.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
@@ -203,13 +201,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/gstreamer-dataprotocol-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-net-%{majorminor}.pc
 
-%doc %{_datadir}/gtk-doc/html/gstreamer-%{majorminor}/*
-%doc %{_datadir}/gtk-doc/html/gstreamer-libs-%{majorminor}/*
-%doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}/*
+%doc %{_datadir}/gtk-doc/html/gstreamer-%{majorminor}
+%doc %{_datadir}/gtk-doc/html/gstreamer-libs-%{majorminor}
+%doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %{_libdir}/rpm/gstreamer.prov
 
 %changelog
+* Mon Jun 02 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.19-3
+- Package more documentation (#240656)
+
 * Wed May 21 2008 - Tom "spot" Callaway <tcallawa@redhat.com> - 0.10.19-2
 - fix license tag
 
