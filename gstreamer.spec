@@ -5,8 +5,8 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.19
-Release: 	3%{?dist}
+Version: 	0.10.20
+Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -208,6 +208,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/rpm/gstreamer.prov
 
 %changelog
+* Wed Jun 18 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-1
+- Update to 0.10.20
+
 * Mon Jun 02 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.19-3
 - Package more documentation (#240656)
 
