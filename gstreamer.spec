@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.20
-Release: 	2%{?dist}
+Release: 	3%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -209,8 +209,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %{_libdir}/rpm/gstreamer.prov
+%{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Thu Sep 11 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-3
+- Update filelist as well
+
 * Thu Sep 11 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-2
 - Update gstreamer provides work for the new RPM, see #438225
 
