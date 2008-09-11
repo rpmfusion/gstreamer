@@ -1,11 +1,11 @@
 Index: gst-inspect.c
 ===================================================================
 RCS file: /cvs/gstreamer/gstreamer/tools/gst-inspect.c,v
-retrieving revision 1.137
-diff -u -p -u -p -r1.137 gst-inspect.c
---- gst-inspect.c	29 Feb 2008 12:41:32 -0000	1.137
-+++ gst-inspect.c	17 Mar 2008 18:56:00 -0000
-@@ -1168,9 +1168,219 @@ print_element_info (GstElementFactory * 
+retrieving revision 1.142
+diff -u -p -r1.142 gst-inspect.c
+--- gst-inspect.c	31 Jul 2008 15:20:31 -0000	1.142
++++ gst-inspect.c	11 Sep 2008 23:47:16 -0000
+@@ -1188,9 +1188,219 @@ print_element_info (GstElementFactory * 
    return 0;
  }
  
@@ -226,7 +226,7 @@ diff -u -p -u -p -r1.137 gst-inspect.c
  {
    GstPadDirection direction;
    const gchar *type_name;
-@@ -1231,15 +1441,19 @@ print_plugin_automatic_install_info_code
+@@ -1251,15 +1461,19 @@ print_plugin_automatic_install_info_code
      gst_structure_remove_field (s, "rate");
      gst_structure_remove_field (s, "depth");
      gst_structure_remove_field (s, "clock-rate");
@@ -250,7 +250,27 @@ diff -u -p -u -p -r1.137 gst-inspect.c
  {
    gchar **protocols, **p;
  
-@@ -1262,7 +1476,7 @@ print_plugin_automatic_install_info_prot
+@@ -1268,11 +1482,17 @@ print_plugin_automatic_install_info_prot
+     switch (gst_element_factory_get_uri_type (factory)) {
+       case GST_URI_SINK:
+         for (p = protocols; *p != NULL; ++p)
+-          g_print ("urisink-%s\n", *p);
++          if (!rpm_format)
++            g_print ("urisink-%s\n", *p);
++          else
++            g_print ("gstreamer0.10(urisink-%s)\n", *p);
+         break;
+       case GST_URI_SRC:
+         for (p = protocols; *p != NULL; ++p)
+-          g_print ("urisource-%s\n", *p);
++          if (!rpm_format)
++            g_print ("urisource-%s\n", *p);
++          else
++            g_print ("gstreamer0.10(urisource-%s)\n", *p);
+         break;
+       default:
+         break;
+@@ -1282,7 +1502,7 @@ print_plugin_automatic_install_info_prot
  }
  
  static void
@@ -259,7 +279,7 @@ diff -u -p -u -p -r1.137 gst-inspect.c
  {
    const gchar *plugin_name;
    GList *features, *l;
-@@ -1282,11 +1496,12 @@ print_plugin_automatic_install_info (Gst
+@@ -1302,11 +1522,12 @@ print_plugin_automatic_install_info (Gst
      if (g_str_equal (plugin_name, feature->plugin_name)) {
        GstElementFactory *factory;
  
@@ -275,7 +295,7 @@ diff -u -p -u -p -r1.137 gst-inspect.c
      }
    }
  
-@@ -1299,6 +1514,7 @@ main (int argc, char *argv[])
+@@ -1319,6 +1540,7 @@ main (int argc, char *argv[])
  {
    gboolean print_all = FALSE;
    gboolean print_aii = FALSE;
@@ -283,7 +303,7 @@ diff -u -p -u -p -r1.137 gst-inspect.c
    GOptionEntry options[] = {
      {"print-all", 'a', 0, G_OPTION_ARG_NONE, &print_all,
          N_("Print all elements"), NULL},
-@@ -1307,6 +1523,9 @@ main (int argc, char *argv[])
+@@ -1327,6 +1549,9 @@ main (int argc, char *argv[])
                "provides.\n                                       "
                "Useful in connection with external automatic plugin "
                "installation mechanisms"), NULL},
@@ -293,7 +313,7 @@ diff -u -p -u -p -r1.137 gst-inspect.c
      GST_TOOLS_GOPTION_VERSION,
      {NULL}
    };
-@@ -1364,7 +1583,7 @@ main (int argc, char *argv[])
+@@ -1384,7 +1609,7 @@ main (int argc, char *argv[])
        /* if there is such a plugin, print out info */
        if (plugin) {
          if (print_aii) {
@@ -302,7 +322,7 @@ diff -u -p -u -p -r1.137 gst-inspect.c
          } else {
            print_plugin_info (plugin);
            print_plugin_features (plugin);
-@@ -1377,7 +1596,7 @@ main (int argc, char *argv[])
+@@ -1397,13 +1622,16 @@ main (int argc, char *argv[])
  
            if (plugin) {
              if (print_aii) {
@@ -311,3 +331,13 @@ diff -u -p -u -p -r1.137 gst-inspect.c
              } else {
                print_plugin_info (plugin);
                print_plugin_features (plugin);
+             }
+           } else {
+-            g_print (_("Could not load plugin file: %s\n"), error->message);
++            if (!print_aii_rpm)
++              g_print (_("Could not load plugin file: %s\n"), error->message);
++	    else
++              g_printerr (_("Could not load plugin file: %s\n"), error->message);
+             g_error_free (error);
+             return -1;
+           }

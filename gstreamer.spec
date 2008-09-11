@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.20
-Release: 	4%{?dist}
+Release: 	5%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -212,6 +212,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Fri Sep 12 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-5
+- Update rpm provides script and patch to:
+  - filter out errors
+  - only run gst-inspect on gstreamer plugins
+  - print out protocol handlers provides correctly
+
 * Thu Sep 11 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-4
 - Add the rpm scripts install in /usr/lib/rpm, not under libdir on 64-bit
 

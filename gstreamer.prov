@@ -9,7 +9,7 @@
 # Based on other provides scripts from RPM
 #
 
-filelist=`sed "s/['\"]/\\\&/g"`
+filelist=`grep -e '.so$' | sed "s/['\"]/\\\&/g"`
 
 # --- Alpha does not mark 64bit dependencies•
 case `uname -m` in
@@ -17,7 +17,7 @@ case `uname -m` in
   *)		mark64="()(64bit)" ;;
 esac
 
-solist=$(echo $filelist | grep "\\.so" | grep -v "^/lib/ld.so" | \
+solist=$(echo $filelist | grep -v "^/lib/ld.so" | \
 	xargs file -L 2>/dev/null | grep "ELF.*shared object" | cut -d: -f1 | grep libgst)
 
 function getmark()
@@ -28,7 +28,7 @@ function getmark()
 
 for so in $solist ; do
 	getmark $so
-	gst-inspect --print-plugin-auto-install-info --rpm $so | while read line ; do
+	gst-inspect --print-plugin-auto-install-info --rpm $so 2> /dev/null | while read line ; do
 		echo -n "$line";
 		echo -n "$lib64"
 		echo
