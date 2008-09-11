@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.20
-Release: 	3%{?dist}
+Release: 	4%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -130,7 +130,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 # Create empty cache directory
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/gstreamer-%{majorminor}
 # Add the provides script
-install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_libdir}/rpm/gstreamer.prov
+install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_prefix}/lib/rpm/gstreamer.prov
 # Add the macros file
 install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/rpm/macros.gstreamer
 
@@ -208,10 +208,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-libs-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
-%{_libdir}/rpm/gstreamer.prov
+%{_prefix}/lib/rpm/gstreamer.prov
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Thu Sep 11 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-4
+- Add the rpm scripts install in /usr/lib/rpm, not under libdir on 64-bit
+
 * Thu Sep 11 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-3
 - Update filelist as well
 
