@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.20
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -34,6 +34,7 @@ BuildRequires:	gcc-c++
 # For the GStreamer RPM provides
 Patch1:		gstreamer-inspect-rpm-format.patch
 Source1:	gstreamer.prov
+Source2:	macros.gstreamer
 
 ### documentation requirements
 BuildRequires:  python2
@@ -130,6 +131,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/gstreamer-%{majorminor}
 # Add the provides script
 install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_libdir}/rpm/gstreamer.prov
+# Add the macros file
+install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/rpm/macros.gstreamer
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -208,6 +211,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/rpm/gstreamer.prov
 
 %changelog
+* Thu Sep 11 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-2
+- Update gstreamer provides work for the new RPM, see #438225
+
 * Wed Jun 18 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-1
 - Update to 0.10.20
 
