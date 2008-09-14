@@ -26,9 +26,16 @@ function getmark()
 		grep "ELF 64-bit" >/dev/null; then echo -n "$mark64"; fi`
 }
 
+function libdir()
+{
+	buildlibdir=`dirname $1`
+	buildlibdir=`dirname $buildlibdir`
+}
+
 for so in $solist ; do
 	getmark $so
-	gst-inspect --print-plugin-auto-install-info --rpm $so 2> /dev/null | while read line ; do
+	libdir $so
+	LD_LIBRARY_PATH=$buildlibdir gst-inspect --print-plugin-auto-install-info --rpm $so 2> /dev/null | while read line ; do
 		echo -n "$line";
 		echo -n "$lib64"
 		echo

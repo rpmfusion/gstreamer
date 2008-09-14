@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.20
-Release: 	5%{?dist}
+Release: 	6%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -212,6 +212,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Sun Sep 14 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-6
+- Hopefully fix RPM provides problem when the GStreamer plugin
+  requires a library installed by the package itself
+
 * Fri Sep 12 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-5
 - Update rpm provides script and patch to:
   - filter out errors
