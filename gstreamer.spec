@@ -5,8 +5,8 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.20
-Release: 	6%{?dist}
+Version: 	0.10.21
+Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -212,6 +212,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Fri Oct 03 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.21-1
+- Update to 0.10.21
+
 * Sun Sep 14 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.20-6
 - Hopefully fix RPM provides problem when the GStreamer plugin
   requires a library installed by the package itself
