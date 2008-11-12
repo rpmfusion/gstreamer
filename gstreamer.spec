@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.21
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -27,6 +27,8 @@ BuildRequires: 	m4
 BuildRequires: 	check-devel
 BuildRequires: 	gtk-doc >= 1.3
 BuildRequires:	gettext
+# We need to use the system libtool or else we end up with RPATHs
+BuildRequires:  libtool
 
 # because AM_PROG_LIBTOOL was used in configure.ac
 BuildRequires:	gcc-c++
@@ -35,6 +37,8 @@ BuildRequires:	gcc-c++
 Patch1:		gstreamer-inspect-rpm-format.patch
 Source1:	gstreamer.prov
 Source2:	macros.gstreamer
+# From: http://bugzilla.gnome.org/show_bug.cgi?id=555631
+Patch2:		gstreamer-0.10.21-fixgnomebz555631.patch
 
 ### documentation requirements
 BuildRequires:  python2
@@ -101,6 +105,7 @@ with different major/minor versions of GStreamer.
 pushd tools/
 %patch1 -p0 -b .rpm-provides
 popd
+%patch2 -p1 -b .gnomebz555631
 
 %build
 # 0.10.0: manuals do not build due to an openjade error; disable for now
@@ -113,7 +118,7 @@ popd
 
 #make %{?_smp_mflags}
 # FIXME: docs building doesn't work with smp yet
-make ERROR_CFLAGS=""
+make ERROR_CFLAGS="" LIBTOOL="%{_bindir}/libtool"
 
 %install  
 rm -rf $RPM_BUILD_ROOT
@@ -212,6 +217,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Tue Nov 11 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 0.10.21-2
+- fix gnome bz 555631 with patch from upstream cvs
+- use system libtool to prevent rpaths
+
 * Fri Oct 03 2008 - Bastien Nocera <bnocera@redhat.com> - 0.10.21-1
 - Update to 0.10.21
 
