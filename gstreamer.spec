@@ -218,7 +218,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
-* Thu Jan 01 2008 Rex Dieter <rdieter@fedoraprojet.org> - 0.10.21-3
+* Thu Jan 01 2009 Rex Dieter <rdieter@fedoraprojet.org> - 0.10.21-3
 - rebuild for pkgconfig deps (#478576)
 
 * Tue Nov 11 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 0.10.21-2
