@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.21
-Release: 	2%{?dist}
+Release: 	3%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -26,7 +26,8 @@ BuildRequires: 	flex
 BuildRequires: 	m4
 BuildRequires: 	check-devel
 BuildRequires: 	gtk-doc >= 1.3
-BuildRequires:	gettext
+BuildRequires:  gettext
+BuildRequires:  pkgconfig
 # We need to use the system libtool or else we end up with RPATHs
 BuildRequires:  libtool
 
@@ -217,6 +218,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Thu Jan 01 2008 Rex Dieter <rdieter@fedoraprojet.org> - 0.10.21-3
+- rebuild for pkgconfig deps (#478576)
+
 * Tue Nov 11 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 0.10.21-2
 - fix gnome bz 555631 with patch from upstream cvs
 - use system libtool to prevent rpaths
