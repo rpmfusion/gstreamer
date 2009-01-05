@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.21
-Release: 	3%{?dist}
+Release: 	4%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -40,6 +40,8 @@ Source1:	gstreamer.prov
 Source2:	macros.gstreamer
 # From: http://bugzilla.gnome.org/show_bug.cgi?id=555631
 Patch2:		gstreamer-0.10.21-fixgnomebz555631.patch
+# From http://bugzilla.gnome.org/show_bug.cgi?id=564507
+Patch3:		gstreamer-fix-bison-check.patch
 
 ### documentation requirements
 BuildRequires:  python2
@@ -107,8 +109,10 @@ pushd tools/
 %patch1 -p0 -b .rpm-provides
 popd
 %patch2 -p1 -b .gnomebz555631
+%patch3 -p0 -b .bison-check
 
 %build
+autoreconf
 # 0.10.0: manuals do not build due to an openjade error; disable for now
 %configure \
   --with-package-name='Fedora Core gstreamer package' \
@@ -218,6 +222,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Mon Jan 05 2009 - Bastien Nocera <bnocera@redhat.com> - 0.10.21-4
+- Fix build with newer version of bison
+
 * Thu Jan 01 2009 Rex Dieter <rdieter@fedoraprojet.org> - 0.10.21-3
 - rebuild for pkgconfig deps (#478576)
 
