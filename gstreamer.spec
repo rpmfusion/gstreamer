@@ -113,6 +113,7 @@ popd
 
 %build
 autoreconf
+libtoolize -f
 # 0.10.0: manuals do not build due to an openjade error; disable for now
 %configure \
   --with-package-name='Fedora Core gstreamer package' \
