@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.22
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -114,9 +114,7 @@ popd
   --enable-debug \
   --disable-tests --disable-examples
 
-#make %{?_smp_mflags}
-# FIXME: docs building doesn't work with smp yet
-make ERROR_CFLAGS="" LIBTOOL="%{_bindir}/libtool"
+make %{?_smp_mflags} ERROR_CFLAGS="" LIBTOOL="%{_bindir}/libtool"
 
 %install  
 rm -rf $RPM_BUILD_ROOT
@@ -215,6 +213,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Mon Feb 23 2009 Adam Jackson <ajax@redhat.com> 0.10.22-2
+- Re-enable parallel build. (#486196)
+
 * Tue Jan 20 2009 - Bastien Nocera <bnocera@redhat.com> - 0.10.22-1
 - Update to 0.10.22
 - Remove upstreamed patches, update rpm provides patch
