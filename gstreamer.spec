@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.22
-Release: 	2%{?dist}
+Release: 	3%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -213,6 +213,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.22-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Mon Feb 23 2009 Adam Jackson <ajax@redhat.com> 0.10.22-2
 - Re-enable parallel build. (#486196)
 
