@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.22
-Release: 	3%{?dist}
+Release: 	4%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -16,8 +16,6 @@ Source: 	http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:	gstreamer-tools >= %{version}
-# gst-feedback uses these
-Requires:	which, pkgconfig
 
 BuildRequires: 	glib2-devel >= %{_glib2}
 BuildRequires: 	libxml2-devel >= %{_libxml2}
@@ -86,6 +84,8 @@ documentation.
 %package -n gstreamer-tools
 Summary: 	common tools and files for GStreamer streaming media framework
 Group: 		Applications/Multimedia
+# gst-feedback uses these
+Requires:       which, pkgconfig
 
 %description -n gstreamer-tools
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -213,6 +213,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Thu Feb 26 2009 Warren Togami <wtogami@redhat.com> - 0.10.22-4
+- Move req on which and pkgconfig to gstreamer-tools
+
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.22-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
