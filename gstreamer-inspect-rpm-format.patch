@@ -1,11 +1,8 @@
-Index: gst-inspect.c
-===================================================================
-RCS file: /cvs/gstreamer/gstreamer/tools/gst-inspect.c,v
-retrieving revision 1.144
-diff -u -p -u -p -r1.144 gst-inspect.c
---- gst-inspect.c	17 Nov 2008 15:48:14 -0000	1.144
-+++ gst-inspect.c	20 Jan 2009 16:11:05 -0000
-@@ -1262,9 +1262,219 @@ print_element_info (GstElementFactory * 
+diff --git a/tools/gst-inspect.c b/tools/gst-inspect.c
+index 227e5ed..e9f93b8 100644
+--- a/tools/gst-inspect.c
++++ b/tools/gst-inspect.c
+@@ -1262,9 +1262,219 @@ print_element_info (GstElementFactory * factory, gboolean print_names)
    return 0;
  }
  
@@ -226,7 +223,20 @@ diff -u -p -u -p -r1.144 gst-inspect.c
  {
    GstPadDirection direction;
    const gchar *type_name;
-@@ -1325,15 +1535,19 @@ print_plugin_automatic_install_info_code
+@@ -1289,6 +1499,12 @@ print_plugin_automatic_install_info_codecs (GstElementFactory * factory)
+     return;
+   }
+ 
++  if (rpm_format) {
++    /* Ignore NONE ranked plugins */
++    if (GST_PLUGIN_FEATURE (factory)->rank == GST_RANK_NONE)
++      return;
++  }
++
+   /* decoder/demuxer sink pads should always be static and there should only
+    * be one, the same applies to encoders/muxers and source pads */
+   static_templates = gst_element_factory_get_static_pad_templates (factory);
+@@ -1325,15 +1541,19 @@ print_plugin_automatic_install_info_codecs (GstElementFactory * factory)
      gst_structure_remove_field (s, "rate");
      gst_structure_remove_field (s, "depth");
      gst_structure_remove_field (s, "clock-rate");
@@ -250,7 +260,7 @@ diff -u -p -u -p -r1.144 gst-inspect.c
  {
    gchar **protocols, **p;
  
-@@ -1342,11 +1556,17 @@ print_plugin_automatic_install_info_prot
+@@ -1342,11 +1562,17 @@ print_plugin_automatic_install_info_protocols (GstElementFactory * factory)
      switch (gst_element_factory_get_uri_type (factory)) {
        case GST_URI_SINK:
          for (p = protocols; *p != NULL; ++p)
@@ -270,7 +280,7 @@ diff -u -p -u -p -r1.144 gst-inspect.c
          break;
        default:
          break;
-@@ -1356,7 +1576,7 @@ print_plugin_automatic_install_info_prot
+@@ -1356,7 +1582,7 @@ print_plugin_automatic_install_info_protocols (GstElementFactory * factory)
  }
  
  static void
@@ -279,7 +289,7 @@ diff -u -p -u -p -r1.144 gst-inspect.c
  {
    const gchar *plugin_name;
    GList *features, *l;
-@@ -1376,11 +1596,12 @@ print_plugin_automatic_install_info (Gst
+@@ -1376,11 +1602,12 @@ print_plugin_automatic_install_info (GstPlugin * plugin)
      if (g_str_equal (plugin_name, feature->plugin_name)) {
        GstElementFactory *factory;
  
@@ -295,7 +305,7 @@ diff -u -p -u -p -r1.144 gst-inspect.c
      }
    }
  
-@@ -1394,6 +1615,7 @@ main (int argc, char *argv[])
+@@ -1394,6 +1621,7 @@ main (int argc, char *argv[])
    gboolean print_all = FALSE;
    gboolean plugin_name = FALSE;
    gboolean print_aii = FALSE;
@@ -303,7 +313,7 @@ diff -u -p -u -p -r1.144 gst-inspect.c
    gboolean uri_handlers = FALSE;
    GOptionEntry options[] = {
      {"print-all", 'a', 0, G_OPTION_ARG_NONE, &print_all,
-@@ -1403,6 +1625,9 @@ main (int argc, char *argv[])
+@@ -1403,6 +1631,9 @@ main (int argc, char *argv[])
                "provides.\n                                       "
                "Useful in connection with external automatic plugin "
                "installation mechanisms"), NULL},
@@ -313,7 +323,7 @@ diff -u -p -u -p -r1.144 gst-inspect.c
      {"plugin", '\0', 0, G_OPTION_ARG_NONE, &plugin_name,
          N_("List the plugin contents"), NULL},
      {"uri-handlers", 'u', 0, G_OPTION_ARG_NONE, &uri_handlers,
-@@ -1478,7 +1703,7 @@ main (int argc, char *argv[])
+@@ -1478,7 +1709,7 @@ main (int argc, char *argv[])
        /* if there is such a plugin, print out info */
        if (plugin) {
          if (print_aii) {
@@ -322,7 +332,7 @@ diff -u -p -u -p -r1.144 gst-inspect.c
          } else {
            print_plugin_info (plugin);
            print_plugin_features (plugin);
-@@ -1491,13 +1716,16 @@ main (int argc, char *argv[])
+@@ -1491,13 +1722,16 @@ main (int argc, char *argv[])
  
            if (plugin) {
              if (print_aii) {

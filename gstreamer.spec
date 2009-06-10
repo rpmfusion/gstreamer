@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.23
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -101,9 +101,7 @@ with different major/minor versions of GStreamer.
 %prep
 %setup -q -n gstreamer-%{version}
 
-pushd tools/
-%patch1 -p0 -b .rpm-provides
-popd
+%patch1 -p1 -b .rpm-provides
 
 %build
 # 0.10.0: manuals do not build due to an openjade error; disable for now
@@ -213,6 +211,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Wed Jun 10 2009 Bastien Nocera <bnocera@redhat.com> 0.10.23-2
+- Update gst-inspect patch to ignore rank none plugins
+
 * Mon May 11 2009 Bastien Nocera <bnocera@redhat.com> 0.10.23-1
 - Update to 0.10.23
 
