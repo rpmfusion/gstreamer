@@ -1,8 +1,15 @@
+diff --git a/common b/common
+index fedaaee..5845b63 160000
+--- a/common
++++ b/common
+@@ -1 +1 @@
+-Subproject commit fedaaee6fa5c0006f5b7264732cb4e29584ef100
++Subproject commit 5845b632c99d8f0ab863bd955a9568d7937108f8
 diff --git a/tools/gst-inspect.c b/tools/gst-inspect.c
-index 227e5ed..e9f93b8 100644
+index a286ce8..7c4ac97 100644
 --- a/tools/gst-inspect.c
 +++ b/tools/gst-inspect.c
-@@ -1262,9 +1262,219 @@ print_element_info (GstElementFactory * factory, gboolean print_names)
+@@ -1270,9 +1270,219 @@ print_element_info (GstElementFactory * factory, gboolean print_names)
    return 0;
  }
  
@@ -223,7 +230,7 @@ index 227e5ed..e9f93b8 100644
  {
    GstPadDirection direction;
    const gchar *type_name;
-@@ -1289,6 +1499,12 @@ print_plugin_automatic_install_info_codecs (GstElementFactory * factory)
+@@ -1297,6 +1507,12 @@ print_plugin_automatic_install_info_codecs (GstElementFactory * factory)
      return;
    }
  
@@ -236,7 +243,7 @@ index 227e5ed..e9f93b8 100644
    /* decoder/demuxer sink pads should always be static and there should only
     * be one, the same applies to encoders/muxers and source pads */
    static_templates = gst_element_factory_get_static_pad_templates (factory);
-@@ -1325,15 +1541,19 @@ print_plugin_automatic_install_info_codecs (GstElementFactory * factory)
+@@ -1333,15 +1549,19 @@ print_plugin_automatic_install_info_codecs (GstElementFactory * factory)
      gst_structure_remove_field (s, "rate");
      gst_structure_remove_field (s, "depth");
      gst_structure_remove_field (s, "clock-rate");
@@ -260,7 +267,7 @@ index 227e5ed..e9f93b8 100644
  {
    gchar **protocols, **p;
  
-@@ -1342,11 +1562,17 @@ print_plugin_automatic_install_info_protocols (GstElementFactory * factory)
+@@ -1350,11 +1570,17 @@ print_plugin_automatic_install_info_protocols (GstElementFactory * factory)
      switch (gst_element_factory_get_uri_type (factory)) {
        case GST_URI_SINK:
          for (p = protocols; *p != NULL; ++p)
@@ -280,7 +287,7 @@ index 227e5ed..e9f93b8 100644
          break;
        default:
          break;
-@@ -1356,7 +1582,7 @@ print_plugin_automatic_install_info_protocols (GstElementFactory * factory)
+@@ -1364,7 +1590,7 @@ print_plugin_automatic_install_info_protocols (GstElementFactory * factory)
  }
  
  static void
@@ -289,7 +296,7 @@ index 227e5ed..e9f93b8 100644
  {
    const gchar *plugin_name;
    GList *features, *l;
-@@ -1376,11 +1602,12 @@ print_plugin_automatic_install_info (GstPlugin * plugin)
+@@ -1384,11 +1610,12 @@ print_plugin_automatic_install_info (GstPlugin * plugin)
      if (g_str_equal (plugin_name, feature->plugin_name)) {
        GstElementFactory *factory;
  
@@ -305,15 +312,15 @@ index 227e5ed..e9f93b8 100644
      }
    }
  
-@@ -1394,6 +1621,7 @@ main (int argc, char *argv[])
+@@ -1402,6 +1629,7 @@ main (int argc, char *argv[])
    gboolean print_all = FALSE;
    gboolean plugin_name = FALSE;
    gboolean print_aii = FALSE;
 +  gboolean print_aii_rpm = FALSE;
    gboolean uri_handlers = FALSE;
+ #ifndef GST_DISABLE_OPTION_PARSING
    GOptionEntry options[] = {
-     {"print-all", 'a', 0, G_OPTION_ARG_NONE, &print_all,
-@@ -1403,6 +1631,9 @@ main (int argc, char *argv[])
+@@ -1412,6 +1640,9 @@ main (int argc, char *argv[])
                "provides.\n                                       "
                "Useful in connection with external automatic plugin "
                "installation mechanisms"), NULL},
@@ -323,7 +330,7 @@ index 227e5ed..e9f93b8 100644
      {"plugin", '\0', 0, G_OPTION_ARG_NONE, &plugin_name,
          N_("List the plugin contents"), NULL},
      {"uri-handlers", 'u', 0, G_OPTION_ARG_NONE, &uri_handlers,
-@@ -1478,7 +1709,7 @@ main (int argc, char *argv[])
+@@ -1492,7 +1723,7 @@ main (int argc, char *argv[])
        /* if there is such a plugin, print out info */
        if (plugin) {
          if (print_aii) {
@@ -332,7 +339,7 @@ index 227e5ed..e9f93b8 100644
          } else {
            print_plugin_info (plugin);
            print_plugin_features (plugin);
-@@ -1491,13 +1722,16 @@ main (int argc, char *argv[])
+@@ -1505,13 +1736,16 @@ main (int argc, char *argv[])
  
            if (plugin) {
              if (print_aii) {
