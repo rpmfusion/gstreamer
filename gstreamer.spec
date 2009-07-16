@@ -5,8 +5,8 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.23
-Release: 	2%{?dist}
+Version: 	0.10.23.2
+Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -211,6 +211,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Thu Jul 16 2009 Bastien Nocera <bnocera@redhat.com> 0.10.23.2-1
+- Update to 0.10.23.2
+
 * Wed Jun 10 2009 Bastien Nocera <bnocera@redhat.com> 0.10.23-2
 - Update gst-inspect patch to ignore rank none plugins
 
