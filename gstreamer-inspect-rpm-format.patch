@@ -1,10 +1,3 @@
-diff --git a/common b/common
-index fedaaee..5845b63 160000
---- a/common
-+++ b/common
-@@ -1 +1 @@
--Subproject commit fedaaee6fa5c0006f5b7264732cb4e29584ef100
-+Subproject commit 5845b632c99d8f0ab863bd955a9568d7937108f8
 diff --git a/tools/gst-inspect.c b/tools/gst-inspect.c
 index a286ce8..7c4ac97 100644
 --- a/tools/gst-inspect.c
