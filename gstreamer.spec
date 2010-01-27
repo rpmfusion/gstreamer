@@ -13,7 +13,6 @@ Group: 		Applications/Multimedia
 License: 	LGPLv2+
 URL:		http://gstreamer.freedesktop.org/
 Source:		http://gstreamer.freedesktop.org/data/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
-Source:		gstreamer-%{version}-%{gitdate}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:	gstreamer-tools >= %{version}
