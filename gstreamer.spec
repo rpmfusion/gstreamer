@@ -5,21 +5,14 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.25.1
-Release: 	2%{?dist}
+Version: 	0.10.25.2
+Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
 License: 	LGPLv2+
 URL:		http://gstreamer.freedesktop.org/
-# Tarfile created using git
-# git clone git://anongit.freedesktop.org/gstreamer/gstreamer
-# git reset --hard %{gitversion}
-# ./autogen.sh --enable-gtk-doc && make all dist
-# mv gstreamer-%{version}.tar.gz gstreamer-%{version}-%{gitdate}.tar.gz
-#Source: 	http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.bz2
-%define gitdate 20091111
-%define git_version 039ef83
+Source:		http://gstreamer.freedesktop.org/data/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
 Source:		gstreamer-%{version}-%{gitdate}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -44,8 +37,6 @@ BuildRequires:	gcc-c++
 Patch1:		gstreamer-inspect-rpm-format.patch
 Source1:	gstreamer.prov
 Source2:	macros.gstreamer
-# https://bugzilla.gnome.org/show_bug.cgi?id=595958
-Patch2:		0001-basesink-fix-position-reporting.patch
 
 ### documentation requirements
 BuildRequires:  python2
@@ -112,7 +103,6 @@ with different major/minor versions of GStreamer.
 %setup -q -n gstreamer-%{version}
 
 %patch1 -p1 -b .rpm-provides
-%patch2 -p1 -b .stepping-position
 
 %build
 # 0.10.0: manuals do not build due to an openjade error; disable for now
@@ -223,6 +213,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Wed Jan 27 2010 Bastien Nocera <bnocera@redhat.com> 0.10.25.2-1
+- Update to pre-release
+
 * Mon Nov 30 2009 Bastien Nocera <bnocera@redhat.com> 0.10.25.1-2
 - Update to snapshot
 
