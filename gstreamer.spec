@@ -5,7 +5,7 @@
 %define 	_libxml2	2.4.0
 
 Name: 		%{gstreamer}
-Version: 	0.10.26.2
+Version: 	0.10.26.3
 Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
@@ -212,6 +212,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Thu Feb 25 2010 Benjamin Otte <otte@redhat.com> 0.10.26.3-1
+- Update to pre-release
+
 * Fri Feb 19 2010 Benjamin Otte <otte@redhat.com> 0.10.26.2-1
 - Update to pre-release
 
