@@ -1,11 +1,13 @@
 %define		gstreamer	gstreamer
 %define		majorminor	0.10
 
-%define 	_glib2		2.8.3
-%define 	_libxml2	2.4.0
+%define 	_glib2		        2.8.3
+%define 	_libxml2	        2.4.0
+%define         _gobject-introspection  0.6.3
+%define         _gir-repository         0.6.5-6
 
 Name: 		%{gstreamer}
-Version: 	0.10.26.3
+Version: 	0.10.26.4
 Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
@@ -26,6 +28,8 @@ BuildRequires: 	check-devel
 BuildRequires: 	gtk-doc >= 1.3
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
+BuildRequires:  gobject-introspection-devel >= %{_gobject_introspection}
+BuildRequires:  gir-repository-devel >= %{_gir_repository}
 # We need to use the system libtool or else we end up with RPATHs
 BuildRequires:  libtool
 
@@ -154,6 +158,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gstreamer-%{majorminor}/libgstcoreelements.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcoreindexers.so
 
+%{_libdir}/girepository-1.0/Gst-0.10.typelib
+%{_libdir}/girepository-1.0/GstBase-0.10.typelib
+%{_libdir}/girepository-1.0/GstCheck-0.10.typelib
+%{_libdir}/girepository-1.0/GstController-0.10.typelib
+%{_libdir}/girepository-1.0/GstNet-0.10.typelib
+
 %{_bindir}/gst-feedback-%{majorminor}
 %{_bindir}/gst-inspect-%{majorminor}
 %{_bindir}/gst-launch-%{majorminor}
@@ -196,6 +206,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgstcontroller-%{majorminor}.so
 %{_libdir}/libgstnet-%{majorminor}.so
 
+%{_datadir}/gir-1.0/Gst-0.10.gir
+%{_datadir}/gir-1.0/GstBase-0.10.gir
+%{_datadir}/gir-1.0/GstCheck-0.10.gir
+%{_datadir}/gir-1.0/GstController-0.10.gir
+%{_datadir}/gir-1.0/GstNet-0.10.gir
+
 %{_datadir}/aclocal/gst-element-check-%{majorminor}.m4
 %{_libdir}/pkgconfig/gstreamer-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-base-%{majorminor}.pc
@@ -212,6 +228,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Thu Mar 06 2010 Benjamin Otte <otte@redhat.com> 0.10.26.4-1
+- Update pre-release
+- Add gobject-introspection support
+
 * Thu Feb 25 2010 Benjamin Otte <otte@redhat.com> 0.10.26.3-1
 - Update to pre-release
 
