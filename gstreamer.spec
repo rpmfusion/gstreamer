@@ -7,14 +7,15 @@
 %define         _gir-repository         0.6.5-6
 
 Name: 		%{gstreamer}
-Version: 	0.10.26.4
+Version: 	0.10.27
 Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
 License: 	LGPLv2+
 URL:		http://gstreamer.freedesktop.org/
-Source:		http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
+#Source:	        http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
+Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:	gstreamer-tools >= %{version}
@@ -228,7 +229,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
-* Thu Mar 06 2010 Benjamin Otte <otte@redhat.com> 0.10.26.4-1
+* Sun Mar 07 2010 Benjamin Otte <otte@redhat.com> 0.10.27-1
+- Update to 0.10.27
+
+* Thu Mar 04 2010 Benjamin Otte <otte@redhat.com> 0.10.26.4-1
 - Update pre-release
 - Add gobject-introspection support
 
