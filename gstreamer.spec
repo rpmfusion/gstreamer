@@ -7,7 +7,7 @@
 %define         _gir-repository         0.6.5-6
 
 Name: 		%{gstreamer}
-Version: 	0.10.27
+Version: 	0.10.28
 Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
@@ -229,6 +229,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Tue Mar 09 2010 Benjamin Otte <otte@redhat.com> 0.10.28-1
+- Update to 0.10.28
+
 * Sun Mar 07 2010 Benjamin Otte <otte@redhat.com> 0.10.27-1
 - Update to 0.10.27
 
