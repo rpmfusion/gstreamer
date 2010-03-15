@@ -8,7 +8,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.28
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -39,6 +39,7 @@ BuildRequires:	gcc-c++
 
 # For the GStreamer RPM provides
 Patch1:		gstreamer-inspect-rpm-format.patch
+Patch2:         0001-plugins-Do-not-ever-unload-a-plugin-after-calling-in.patch
 Source1:	gstreamer.prov
 Source2:	macros.gstreamer
 
@@ -107,6 +108,7 @@ with different major/minor versions of GStreamer.
 %setup -q -n gstreamer-%{version}
 
 %patch1 -p1 -b .rpm-provides
+%patch2 -p1 -b .no-unload
 
 %build
 # 0.10.0: manuals do not build due to an openjade error; disable for now
@@ -229,6 +231,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Mon Mar 15 2010 Benjamin Otte <otte@redhat.com> 0.10.28-2
+- Fix crashes when plugin init fails (#572800)
+
 * Tue Mar 09 2010 Benjamin Otte <otte@redhat.com> 0.10.28-1
 - Update to 0.10.28
 

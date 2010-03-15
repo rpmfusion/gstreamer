@@ -1,0 +1,64 @@
+From 8fe63000de31bb2bcf346d59230dea06117997cd Mon Sep 17 00:00:00 2001
+From: Benjamin Otte <otte@redhat.com>
+Date: Fri, 12 Mar 2010 16:42:47 +0100
+Subject: [PATCH] plugins: Do not ever unload a plugin after calling into it
+
+This is what can happen in a plugin_init function:
+- An element based on GstBaseSink is registered
+- Other elements fail to register
+- The plugin_init function returns FALSE
+
+Now if this the plugin is the first plugin to link against
+libgstbase.so, it will have caused libgstbase.so to be loaded and static
+strings from that library will have been added to gobject while
+registering GstBaseSink.
+
+So unloading the plugin will cause those strings to go stale and the
+next plugin using GstBaseSink will crash. So we must not unload modules
+after calling into them ever.
+
+https://bugzilla.redhat.com/show_bug.cgi?id=572800
+---
+ gst/gstplugin.c |    9 ++++++---
+ 1 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/gst/gstplugin.c b/gst/gstplugin.c
+index 0f146ae..af62434 100644
+--- a/gst/gstplugin.c
++++ b/gst/gstplugin.c
+@@ -412,18 +412,22 @@ gst_plugin_register_func (GstPlugin * plugin, const GstPluginDesc * desc,
+ 
+   gst_plugin_desc_copy (&plugin->desc, desc);
+ 
++  /* make resident so we're really sure it never gets unloaded again.
++   * Theoretically this is not needed, but practically it doesn't hurt.
++   * And we're rather safe than sorry. */
++  if (plugin->module)
++    g_module_make_resident (plugin->module);
++
+   if (user_data) {
+     if (!(((GstPluginInitFullFunc) (desc->plugin_init)) (plugin, user_data))) {
+       if (GST_CAT_DEFAULT)
+         GST_WARNING ("plugin \"%s\" failed to initialise", plugin->filename);
+-      plugin->module = NULL;
+       return NULL;
+     }
+   } else {
+     if (!((desc->plugin_init) (plugin))) {
+       if (GST_CAT_DEFAULT)
+         GST_WARNING ("plugin \"%s\" failed to initialise", plugin->filename);
+-      plugin->module = NULL;
+       return NULL;
+     }
+   }
+@@ -646,7 +650,6 @@ gst_plugin_load_file (const gchar * filename, GError ** error)
+         GST_PLUGIN_ERROR_MODULE,
+         "File \"%s\" appears to be a GStreamer plugin, but it failed to initialize",
+         filename);
+-    g_module_close (module);
+     goto return_error;
+   }
+ 
+-- 
+1.6.6.1
+
