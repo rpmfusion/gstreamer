@@ -7,15 +7,15 @@
 %define         _gir-repository         0.6.5-6
 
 Name: 		%{gstreamer}
-Version: 	0.10.28.2
+Version: 	0.10.28.3
 Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
 License: 	LGPLv2+
 URL:		http://gstreamer.freedesktop.org/
-#Source:	        http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
-Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.bz2
+Source:	        http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
+#Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:	gstreamer-tools >= %{version}
@@ -229,6 +229,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rpm/macros.gstreamer
 
 %changelog
+* Thu Apr 26 2010 Benjamin Otte <otte@redhat.com> 0.10.28.3-1
+- Update pre-release
+
 * Thu Apr 15 2010 Benjamin Otte <otte@redhat.com> 0.10.28.2-1
 - Update pre-release
 
