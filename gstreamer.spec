@@ -8,7 +8,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.28.3
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -83,8 +83,21 @@ types or processing capabilities can be added simply by installing new
 plugins.
 
 This package contains the libraries and includes files necessary to develop
-applications and plugins for GStreamer, as well as general and API
-documentation.
+applications and plugins for GStreamer. If you plan to develop applications
+with GStreamer, consider installing the gstreamer-devel-docs package and the
+documentation packages for any plugins you intend to use.
+
+%package devel-docs
+Summary: Developer documentation for GStreamer streaming media framework
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+# for /usr/share/gtk-doc/html
+Requires: gtk-doc
+BuildArch: noarch
+
+%description devel-docs
+This package contains developer documentation for the GStreamer streaming
+media framework.
 
 %package -n gstreamer-tools
 Summary: 	common tools and files for GStreamer streaming media framework
@@ -221,14 +234,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/gstreamer-dataprotocol-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-net-%{majorminor}.pc
 
-%doc %{_datadir}/gtk-doc/html/gstreamer-%{majorminor}
-%doc %{_datadir}/gtk-doc/html/gstreamer-libs-%{majorminor}
-%doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %{_prefix}/lib/rpm/gstreamer.prov
 %{_sysconfdir}/rpm/macros.gstreamer
 
+%files devel-docs
+%defattr(-, root, root, -)
+%doc %{_datadir}/gtk-doc/html/gstreamer-%{majorminor}
+%doc %{_datadir}/gtk-doc/html/gstreamer-libs-%{majorminor}
+%doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
+
 %changelog
+* Tue Apr 27 2010 Benjamin Otte <otte@redhat.com> 0.10.28.3-2
+- Make a noarch devel-docs subpackage to avoid conflicts
+
 * Thu Apr 26 2010 Benjamin Otte <otte@redhat.com> 0.10.28.3-1
 - Update pre-release
 
