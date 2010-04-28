@@ -7,15 +7,15 @@
 %define         _gir-repository         0.6.5-6
 
 Name: 		%{gstreamer}
-Version: 	0.10.28.3
-Release: 	2%{?dist}
+Version: 	0.10.29
+Release: 	1%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
 License: 	LGPLv2+
 URL:		http://gstreamer.freedesktop.org/
-Source:	        http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
-#Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.bz2
+#Source:	        http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
+Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:	gstreamer-tools >= %{version}
@@ -245,6 +245,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Wed Apr 28 2010 Benjamin Otte <otte@redhat.com> 0.10.29-1
+- Update to 0.10.29
+
 * Tue Apr 27 2010 Benjamin Otte <otte@redhat.com> 0.10.28.3-2
 - Make a noarch devel-docs subpackage to avoid conflicts
 
