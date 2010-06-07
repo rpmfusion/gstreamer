@@ -8,7 +8,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.29
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
@@ -41,6 +41,9 @@ BuildRequires:	gcc-c++
 Patch1:		gstreamer-inspect-rpm-format.patch
 Source1:	gstreamer.prov
 Source2:	macros.gstreamer
+
+# https://bugzilla.gnome.org/show_bug.cgi?id=620500
+Patch2: 0001-queue2-don-t-wait-for-data-when-EOS.patch
 
 ### documentation requirements
 BuildRequires:  python2
@@ -120,6 +123,7 @@ with different major/minor versions of GStreamer.
 %setup -q -n gstreamer-%{version}
 
 %patch1 -p1 -b .rpm-provides
+%patch2 -p1 -b .wait-eos
 
 %build
 # 0.10.0: manuals do not build due to an openjade error; disable for now
@@ -245,6 +249,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Mon Jun 07 2010 Bastien Nocera <bnocera@redhat.com> 0.10.29-2
+- Add patch to fix download buffering in Totem
+
 * Wed Apr 28 2010 Benjamin Otte <otte@redhat.com> 0.10.29-1
 - Update to 0.10.29
 
