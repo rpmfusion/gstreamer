@@ -1,32 +1,32 @@
-%define		gstreamer	gstreamer
-%define		majorminor	0.10
+%define         gstreamer       gstreamer
+%define         majorminor      0.10
 
-%define 	_glib2		        2.8.3
-%define 	_libxml2	        2.4.0
+%define         _glib2                  2.8.3
+%define         _libxml2                2.4.0
 %define         _gobject-introspection  0.6.3
 %define         _gir-repository         0.6.5-6
 
-Name: 		%{gstreamer}
-Version: 	0.10.29
-Release: 	2%{?dist}
-Summary: 	GStreamer streaming media framework runtime
+Name:           %{gstreamer}
+Version:        0.10.29
+Release:        2%{?dist}
+Summary:        GStreamer streaming media framework runtime
 
-Group: 		Applications/Multimedia
-License: 	LGPLv2+
-URL:		http://gstreamer.freedesktop.org/
-#Source:	        http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
+Group:          Applications/Multimedia
+License:        LGPLv2+
+URL:            http://gstreamer.freedesktop.org/
+#Source:         http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
 Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:	gstreamer-tools >= %{version}
+Requires:       gstreamer-tools >= %{version}
 
-BuildRequires: 	glib2-devel >= %{_glib2}
-BuildRequires: 	libxml2-devel >= %{_libxml2}
-BuildRequires: 	bison
-BuildRequires: 	flex
-BuildRequires: 	m4
-BuildRequires: 	check-devel
-BuildRequires: 	gtk-doc >= 1.3
+BuildRequires:  glib2-devel >= %{_glib2}
+BuildRequires:  libxml2-devel >= %{_libxml2}
+BuildRequires:  bison
+BuildRequires:  flex
+BuildRequires:  m4
+BuildRequires:  check-devel
+BuildRequires:  gtk-doc >= 1.3
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
 BuildRequires:  gobject-introspection-devel >= %{_gobject_introspection}
@@ -35,12 +35,12 @@ BuildRequires:  gir-repository-devel >= %{_gir_repository}
 BuildRequires:  libtool
 
 # because AM_PROG_LIBTOOL was used in configure.ac
-BuildRequires:	gcc-c++
+BuildRequires:  gcc-c++
 
 # For the GStreamer RPM provides
-Patch1:		gstreamer-inspect-rpm-format.patch
-Source1:	gstreamer.prov
-Source2:	macros.gstreamer
+Patch1:         gstreamer-inspect-rpm-format.patch
+Source1:        gstreamer.prov
+Source2:        macros.gstreamer
 
 # https://bugzilla.gnome.org/show_bug.cgi?id=620500
 Patch2: 0001-queue2-don-t-wait-for-data-when-EOS.patch
@@ -49,11 +49,11 @@ Patch2: 0001-queue2-don-t-wait-for-data-when-EOS.patch
 BuildRequires:  python2
 BuildRequires:  openjade
 BuildRequires:  jadetex
-BuildRequires:	libxslt
+BuildRequires:  libxslt
 BuildRequires:  docbook-style-dsssl
 BuildRequires:  docbook-style-xsl
 BuildRequires:  docbook-utils
-BuildRequires:	transfig
+BuildRequires:  transfig
 BuildRequires:  xfig
 BuildRequires:  netpbm-progs
 BuildRequires:  tetex-dvips
@@ -69,13 +69,13 @@ types or processing capabilities can be added simply by installing new
 plugins.
 
 %package devel
-Summary: 	Libraries/include files for GStreamer streaming media framework
-Group: 		Development/Libraries
+Summary:        Libraries/include files for GStreamer streaming media framework
+Group:          Development/Libraries
 
-Requires: 	%{name} = %{version}-%{release}
-Requires: 	glib2-devel >= %{_glib2}
-Requires: 	libxml2-devel >= %{_libxml2}
-Requires:	check-devel
+Requires:       %{name} = %{version}-%{release}
+Requires:       glib2-devel >= %{_glib2}
+Requires:       libxml2-devel >= %{_libxml2}
+Requires:       check-devel
 
 %description devel
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -103,8 +103,8 @@ This package contains developer documentation for the GStreamer streaming
 media framework.
 
 %package -n gstreamer-tools
-Summary: 	common tools and files for GStreamer streaming media framework
-Group: 		Applications/Multimedia
+Summary:        common tools and files for GStreamer streaming media framework
+Group:          Applications/Multimedia
 # gst-feedback uses these
 Requires:       which, pkgconfig
 
@@ -120,7 +120,7 @@ This package contains wrapper scripts for the command-line tools that work
 with different major/minor versions of GStreamer.
 
 %prep
-%setup -q -n gstreamer-%{version}
+%setup -q
 
 %patch1 -p1 -b .rpm-provides
 %patch2 -p1 -b .wait-eos
@@ -237,7 +237,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/gstreamer-check-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-dataprotocol-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-net-%{majorminor}.pc
-
 
 %{_prefix}/lib/rpm/gstreamer.prov
 %{_sysconfdir}/rpm/macros.gstreamer
