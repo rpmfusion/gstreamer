@@ -4,7 +4,6 @@
 %define         _glib2                  2.8.3
 %define         _libxml2                2.4.0
 %define         _gobject-introspection  0.6.3
-%define         _gir-repository         0.6.5-6
 
 Name:           %{gstreamer}
 Version:        0.10.29.2
@@ -30,7 +29,6 @@ BuildRequires:  gtk-doc >= 1.3
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
 BuildRequires:  gobject-introspection-devel >= %{_gobject_introspection}
-BuildRequires:  gir-repository-devel >= %{_gir_repository}
 # We need to use the system libtool or else we end up with RPATHs
 BuildRequires:  libtool
 
