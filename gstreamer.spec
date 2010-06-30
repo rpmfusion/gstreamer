@@ -6,8 +6,8 @@
 %define         _gobject-introspection  0.6.3
 
 Name:           %{gstreamer}
-Version:        0.10.29.2
-Release:        2%{?dist}
+Version:        0.10.29.3
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -242,6 +242,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Wed Jun 30 2010 Benjamin Otte <otte@redhat.com> 0.10.29.3-1
+- Update prerelease
+
 * Sun Jun 27 2010 Benjamin Otte <otte@redhat.com> 0.10.29.2-1
 - Update to prerelease
 
