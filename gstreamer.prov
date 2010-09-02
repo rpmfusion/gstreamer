@@ -17,8 +17,8 @@ case `uname -m` in
   *)		mark64="()(64bit)" ;;
 esac
 
-solist=$(echo $filelist | grep -v "^/lib/ld.so" | \
-	xargs file -L 2>/dev/null | grep "ELF.*shared object" | cut -d: -f1 | grep libgst)
+solist=$(echo $filelist | grep "libgst" | \
+	xargs file -L 2>/dev/null | grep "ELF.*shared object" | cut -d: -f1 )
 
 function getmark()
 {
