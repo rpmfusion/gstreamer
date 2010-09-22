@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.30
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -241,6 +241,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Wed Sep 22 2010 Matthias Clasen <mclasen@redhat.com> 0.10.30-4
+- Rebuild against newer gobject-introspection
+
 * Thu Sep 02 2010 Bastien Nocera <bnocera@redhat.com> 0.10.30-3
 - Make gstreamer.prov faster by avoiding non-"libgst" files early
   Patch from Dominique Leuenberger <dimstar@opensuse.org>
