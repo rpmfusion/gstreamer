@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.30
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -37,6 +37,8 @@ BuildRequires:  gcc-c++
 
 # For the GStreamer RPM provides
 Patch1:         gstreamer-inspect-rpm-format.patch
+# Fix spaces/tabs in makefiles
+Patch2:         gstreamer-0.10.30-tabs.patch
 Source1:        gstreamer.prov
 Source2:        macros.gstreamer
 
@@ -118,6 +120,7 @@ with different major/minor versions of GStreamer.
 %setup -q
 
 %patch1 -p1 -b .rpm-provides
+%patch2 -p1 -b .tabs
 
 %build
 %configure \
@@ -241,6 +244,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Sun Nov 07 2010 Dan Horák <dan[at]danny.cz> 0.10.30-5
+- Fix build with make 3.82
+
 * Wed Sep 22 2010 Matthias Clasen <mclasen@redhat.com> 0.10.30-4
 - Rebuild against newer gobject-introspection
 
