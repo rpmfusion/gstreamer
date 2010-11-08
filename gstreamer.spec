@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.30
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -244,6 +244,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Mon Nov 08 2010 Bastien Nocera <bnocera@redhat.com> 0.10.30-6
+- Rebuild against newer gobject-introspection
+
 * Sun Nov 07 2010 Dan Horák <dan[at]danny.cz> 0.10.30-5
 - Fix build with make 3.82
 
