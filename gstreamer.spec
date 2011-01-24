@@ -241,7 +241,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
-* Tue Jan 25 2010 Benjamin Otte <otte@redhat.com> 0.10.32-1
+* Tue Jan 25 2011 Benjamin Otte <otte@redhat.com> 0.10.32-1
 - Update to 0.10.32
 
 * Tue Jan 11 2011 Benjamin Otte <otte@redhat.com> 0.10.31.3-1
