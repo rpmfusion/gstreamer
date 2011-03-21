@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.32
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -38,7 +38,7 @@ BuildRequires:  gcc-c++
 # For the GStreamer RPM provides
 Patch1:         gstreamer-inspect-rpm-format.patch
 Source1:        gstreamer.prov
-Source2:        macros.gstreamer
+Source2:        gstreamer.attr
 
 ### documentation requirements
 BuildRequires:  python2
@@ -144,9 +144,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 # Create empty cache directory
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/gstreamer-%{majorminor}
 # Add the provides script
-install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_prefix}/lib/rpm/gstreamer.prov
-# Add the macros file
-install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/rpm/macros.gstreamer
+install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_rpmconfigdir}/gstreamer.prov
+# Add the gstreamer plugin file attribute entry (rpm >= 4.9.0)
+install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer.attr
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -231,8 +231,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/gstreamer-dataprotocol-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-net-%{majorminor}.pc
 
-%{_prefix}/lib/rpm/gstreamer.prov
-%{_sysconfdir}/rpm/macros.gstreamer
+%{_rpmconfigdir}/gstreamer.prov
+%{_rpmconfigdir}/fileattrs/gstreamer.attr
 
 %files devel-docs
 %defattr(-, root, root, -)
@@ -241,6 +241,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Mon Mar 21 2011 Panu Matilainen <pmatilai@redhat.com> 0.10.32-4
+- Adjust provides generation for rpm >= 4.9.0
+
 * Mon Mar 21 2011 Bastien Nocera <bnocera@redhat.com> 0.10.32-3
 - Make it possible to auto-install GStreamer elements by name
 
