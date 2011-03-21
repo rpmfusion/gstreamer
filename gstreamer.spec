@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.32
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -241,6 +241,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Mon Mar 21 2011 Bastien Nocera <bnocera@redhat.com> 0.10.32-3
+- Make it possible to auto-install GStreamer elements by name
+
 * Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.32-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
