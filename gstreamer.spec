@@ -6,8 +6,8 @@
 %define         _gobject-introspection  0.6.3
 
 Name:           %{gstreamer}
-Version:        0.10.32
-Release:        4%{?dist}
+Version:        0.10.32.2
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -241,6 +241,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Mon Apr 18 2011 Benjamin Otte <otte@redhat.com> 0.10.32.2-1
+- Update to prerelease
+
 * Mon Mar 21 2011 Panu Matilainen <pmatilai@redhat.com> 0.10.32-4
 - Adjust provides generation for rpm >= 4.9.0
 
