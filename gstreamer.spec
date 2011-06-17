@@ -1,12 +1,12 @@
 %define         gstreamer       gstreamer
 %define         majorminor      0.10
 
-%define         _glib2                  2.8.3
+%define         _glib2                  2.22
 %define         _libxml2                2.4.0
 %define         _gobject-introspection  0.6.3
 
 Name:           %{gstreamer}
-Version:        0.10.34
+Version:        0.10.35
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -14,7 +14,7 @@ Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 #Source:         http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
-Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.bz2
+Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       gstreamer-tools >= %{version}
@@ -241,8 +241,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Fri Jun 17 2011 Tomas Bzatek <tbzatek@redhat.com> 0.10.35-1
+- Update to 0.10.35
+
 * Sat May 14 2011 Benjamin Otte <otte@redhat.com> 0.10.34-1
-- Update to 0.10.33 
+- Update to 0.10.34
 
 * Tue May 10 2011 Benjamin Otte <otte@redhat.com> 0.10.33-1
 - Update to 0.10.33 
