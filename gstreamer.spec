@@ -6,14 +6,14 @@
 %define         _gobject-introspection  0.6.3
 
 Name:           %{gstreamer}
-Version:        0.10.35
-Release:        2%{?dist}
+Version:        0.10.36
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
-#Source:         http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.bz2
+#Source:         http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.xz
 Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -241,6 +241,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Tue Feb 28 2012 Benjamin Otte <otte@redhat.com> 0.10.36-1
+- Update to 0.10.36
+
 * Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.35-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
