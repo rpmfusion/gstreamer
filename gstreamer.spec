@@ -151,7 +151,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %postun -p /sbin/ldconfig
 
 %files -f gstreamer-%{majorminor}.lang
-%doc AUTHORS COPYING NEWS README RELEASE TODO
+%doc AUTHORS COPYING NEWS README RELEASE
 %{_libdir}/libgstreamer-%{majorminor}.so.*
 %{_libdir}/libgstbase-%{majorminor}.so.*
 %{_libdir}/libgstcheck-%{majorminor}.so.*
