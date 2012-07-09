@@ -732,7 +732,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 - add BuildRequires for these two libs
 
 * Sun Mar 3 2002 Thomas Vander Stichele <thomas@apestaart.org>
-- put html docs in canonical place, avoiding %doc erasure
+- put html docs in canonical place, avoiding %%doc erasure
 - added devhelp support, current install of it is hackish
 
 * Sat Mar 2 2002 Christian Schaller <Uraeus@linuxrising.org>
