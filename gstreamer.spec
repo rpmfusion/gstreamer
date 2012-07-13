@@ -52,6 +52,10 @@ BuildRequires:  tetex-dvips
 BuildRequires:  ghostscript
 BuildRequires:  PyXML
 
+## These provides/obsoletes added with F18. Can be dropped around F22.
+Provides:       gstreamer-tools = %{version}-%{release}
+Obsoletes:      gstreamer-tools < 0.11.92-1
+
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
