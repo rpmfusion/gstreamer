@@ -14,10 +14,10 @@ Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
-Patch2:         gstreamer-address.patch
 
 # For the GStreamer RPM provides
-Patch1:         gstreamer-inspect-rpm-format.patch
+# TODO: Rewrite inspect rpm format patch for the gst-1.0 api.
+#Patch1:         gstreamer-inspect-rpm-format.patch
 Source1:        gstreamer.prov
 Source2:        gstreamer.attr
 
@@ -102,9 +102,7 @@ media framework.
 
 %prep
 %setup -q
-## Disable for now until I get a chance to rebase it.
 #%patch1 -p1 -b .rpm-provides
-%patch2 -p1 -b .address
 
 
 %build
@@ -216,7 +214,6 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 - Update to 0.11.92.
 - Drop clean section. No longer needed.
 - Bump minimum version of gobject-introspection and glib2.
-- Disable building static libs.
 - Fix gobject-introspection macro.
 - Drop Buildroot. No longer needed.
 - Drop tools subpackage.
