@@ -21,6 +21,8 @@ Patch1:         gstreamer-inspect-rpm-format.patch
 Source1:        gstreamer.prov
 Source2:        gstreamer.attr
 
+Requires:       gstreamer-tools >= %{version}
+
 BuildRequires:  glib2-devel >= %{_glib2}
 BuildRequires:  libxml2-devel >= %{_libxml2}
 BuildRequires:  bison
@@ -52,7 +54,6 @@ BuildRequires:  tetex-dvips
 BuildRequires:  ghostscript
 BuildRequires:  PyXML
 
-
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
 operate on media data. Applications using this library can do anything
@@ -60,7 +61,6 @@ from real-time sound processing to playing videos, and just about anything
 else media-related.  Its plugin-based architecture means that new data
 types or processing capabilities can be added simply by installing new 
 plugins.
-
 
 %package devel
 Summary:        Libraries/include files for GStreamer streaming media framework
@@ -70,7 +70,6 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       glib2-devel >= %{_glib2}
 Requires:       libxml2-devel >= %{_libxml2}
 Requires:       check-devel
-
 
 %description devel
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -85,7 +84,6 @@ applications and plugins for GStreamer. If you plan to develop applications
 with GStreamer, consider installing the gstreamer-devel-docs package and the
 documentation packages for any plugins you intend to use.
 
-
 %package devel-docs
 Summary: Developer documentation for GStreamer streaming media framework
 Group: Development/Libraries
@@ -94,18 +92,32 @@ Requires: %{name} = %{version}-%{release}
 Requires: gtk-doc
 BuildArch: noarch
 
-
 %description devel-docs
 This package contains developer documentation for the GStreamer streaming
 media framework.
 
+%package -n gstreamer-tools
+Summary:        common tools and files for GStreamer streaming media framework
+Group:          Applications/Multimedia
+# gst-feedback uses these
+Requires:       which, pkgconfig
+
+%description -n gstreamer-tools
+GStreamer is a streaming media framework, based on graphs of filters which
+operate on media data. Applications using this library can do anything
+from real-time sound processing to playing videos, and just about anything
+else media-related.  Its plugin-based architecture means that new data
+types or processing capabilities can be added simply by installing new   
+plugins.
+
+This package contains wrapper scripts for the command-line tools that work
+with different major/minor versions of GStreamer.
 
 %prep
 %setup -q
 ## Disable for now until I get a chance to rebase it.
 #%patch1 -p1 -b .rpm-provides
 %patch2 -p1 -b .address
-
 
 %build
 %configure \
@@ -117,9 +129,9 @@ media framework.
 
 make %{?_smp_mflags} ERROR_CFLAGS="" LIBTOOL="%{_bindir}/libtool"
 
-
 %install  
 rm -rf $RPM_BUILD_ROOT
+
 # Install doc temporarily in order to be included later by rpm
 make install DESTDIR=$RPM_BUILD_ROOT
 
@@ -135,18 +147,9 @@ install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_rpmconfigdir}/gstreamer.prov
 # Add the gstreamer plugin file attribute entry (rpm >= 4.9.0)
 install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer.attr
 
-
 %post -p /sbin/ldconfig
 
-
 %postun -p /sbin/ldconfig
-
-
-%post devel -p /sbin/ldconfig
-
-
-%postun devel -p /sbin/ldconfig
-
 
 %files -f gstreamer-%{majorminor}.lang
 %doc AUTHORS COPYING NEWS README RELEASE
@@ -174,6 +177,13 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %doc %{_mandir}/man1/gst-launch-%{majorminor}.*
 %doc %{_mandir}/man1/gst-typefind-%{majorminor}.*
 
+%files -n gstreamer-tools
+#%{_bindir}/gst-feedback
+#%{_bindir}/gst-inspect
+#%{_bindir}/gst-launch
+#%{_bindir}/gst-typefind
+#%{_bindir}/gst-xmlinspect
+#%{_bindir}/gst-xmllaunch
 
 %files devel
 %dir %{_includedir}/gstreamer-%{majorminor}
@@ -210,12 +220,10 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %{_rpmconfigdir}/gstreamer.prov
 %{_rpmconfigdir}/fileattrs/gstreamer.attr
 
-
 %files devel-docs
 %doc %{_datadir}/gtk-doc/html/gstreamer-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gstreamer-libs-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
-
 
 %changelog
 * Mon Jul  9 2012 Brian Pepple <bpepple@fedoraproject.org> - 0.11.92-1
@@ -225,7 +233,6 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 - Disable building static libs.
 - Fix gobject-introspection macro.
 - Drop Buildroot. No longer needed.
-- Drop tools subpackage.
 
 * Tue Feb 28 2012 Benjamin Otte <otte@redhat.com> 0.10.36-1
 - Update to 0.10.36
