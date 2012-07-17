@@ -220,7 +220,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 - Bump minimum version of gobject-introspection and glib2.
 - Fix gobject-introspection macro.
 - Drop Buildroot. No longer needed.
-- Drop tools subpackage and add provides/obsolete.
+- Drop tools subpackage.
 
 * Tue Feb 28 2012 Benjamin Otte <otte@redhat.com> 0.10.36-1
 - Update to 0.10.36
