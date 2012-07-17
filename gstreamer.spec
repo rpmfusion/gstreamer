@@ -13,13 +13,8 @@ Summary:        A streaming media framework run-time
 Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
+#Source:         http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.xz
 Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
-Patch2:         gstreamer-address.patch
-
-# For the GStreamer RPM provides
-Patch1:         gstreamer-inspect-rpm-format.patch
-Source1:        gstreamer.prov
-Source2:        gstreamer.attr
 
 Requires:       gstreamer-tools >= %{version}
 
@@ -38,6 +33,11 @@ BuildRequires:  libtool
 
 # because AM_PROG_LIBTOOL was used in configure.ac
 BuildRequires:  gcc-c++
+
+# For the GStreamer RPM provides
+Patch1:         gstreamer-inspect-rpm-format.patch
+Source1:        gstreamer.prov
+Source2:        gstreamer.attr
 
 ### documentation requirements
 BuildRequires:  python2
@@ -117,7 +117,6 @@ with different major/minor versions of GStreamer.
 %setup -q
 ## Disable for now until I get a chance to rebase it.
 #%patch1 -p1 -b .rpm-provides
-%patch2 -p1 -b .address
 
 %build
 %configure \
