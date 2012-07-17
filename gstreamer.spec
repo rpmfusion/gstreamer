@@ -8,7 +8,7 @@
 Name:           %{gstreamer}
 Version:        0.11.92
 Release:        1%{?dist}
-Summary:        A streaming media framework run-time
+Summary:        GStreamer streaming media framework run-time
 
 Group:          Applications/Multimedia
 License:        LGPLv2+
