@@ -1,12 +1,12 @@
 %define         gstreamer       gstreamer
-%define         majorminor      1.0
+%define         majorminor      0.10
 
-%define         _glib2                  2.31.14
+%define         _glib2                  2.22
 %define         _libxml2                2.4.0
-%define         _gobject_introspection  1.31.1
+%define         _gobject-introspection  0.6.3
 
 Name:           %{gstreamer}
-Version:        0.11.92
+Version:        0.10.36
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -15,6 +15,7 @@ License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 #Source:         http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.xz
 Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       gstreamer-tools >= %{version}
 
@@ -115,12 +116,12 @@ with different major/minor versions of GStreamer.
 
 %prep
 %setup -q
-## Disable for now until I get a chance to rebase it.
-#%patch1 -p1 -b .rpm-provides
+
+%patch1 -p1 -b .rpm-provides
 
 %build
 %configure \
-  --with-package-name='Fedora gstreamer package' \
+  --with-package-name='Fedora Core gstreamer package' \
   --with-package-origin='http://download.fedora.redhat.com/fedora' \
   --enable-gtk-doc \
   --enable-debug \
@@ -137,8 +138,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %find_lang gstreamer-%{majorminor}
 # Clean out files that should not be part of the rpm. 
 rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/*.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/*.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
+rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 # Create empty cache directory
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/gstreamer-%{majorminor}
 # Add the provides script
@@ -146,93 +148,99 @@ install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_rpmconfigdir}/gstreamer.prov
 # Add the gstreamer plugin file attribute entry (rpm >= 4.9.0)
 install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer.attr
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
 %files -f gstreamer-%{majorminor}.lang
+%defattr(-, root, root, -)
 %doc AUTHORS COPYING NEWS README RELEASE TODO
 %{_libdir}/libgstreamer-%{majorminor}.so.*
 %{_libdir}/libgstbase-%{majorminor}.so.*
-%{_libdir}/libgstcheck-%{majorminor}.so.*
 %{_libdir}/libgstcontroller-%{majorminor}.so.*
+%{_libdir}/libgstdataprotocol-%{majorminor}.so.*
 %{_libdir}/libgstnet-%{majorminor}.so.*
 %{_libexecdir}/gstreamer-%{majorminor}/
 
 %dir %{_libdir}/gstreamer-%{majorminor}
 %{_libdir}/gstreamer-%{majorminor}/libgstcoreelements.so
+%{_libdir}/gstreamer-%{majorminor}/libgstcoreindexers.so
 
-%{_libdir}/girepository-1.0/Gst-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstBase-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstCheck-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstController-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstNet-%{majorminor}.typelib
+%{_libdir}/girepository-1.0/Gst-0.10.typelib
+%{_libdir}/girepository-1.0/GstBase-0.10.typelib
+%{_libdir}/girepository-1.0/GstCheck-0.10.typelib
+%{_libdir}/girepository-1.0/GstController-0.10.typelib
+%{_libdir}/girepository-1.0/GstNet-0.10.typelib
 
+%{_bindir}/gst-feedback-%{majorminor}
 %{_bindir}/gst-inspect-%{majorminor}
 %{_bindir}/gst-launch-%{majorminor}
 %{_bindir}/gst-typefind-%{majorminor}
+%{_bindir}/gst-xmlinspect-%{majorminor}
+%{_bindir}/gst-xmllaunch-%{majorminor}
 
+%doc %{_mandir}/man1/gst-feedback-%{majorminor}.*
 %doc %{_mandir}/man1/gst-inspect-%{majorminor}.*
 %doc %{_mandir}/man1/gst-launch-%{majorminor}.*
 %doc %{_mandir}/man1/gst-typefind-%{majorminor}.*
+%doc %{_mandir}/man1/gst-xmlinspect-%{majorminor}.*
+%doc %{_mandir}/man1/gst-xmllaunch-%{majorminor}.*
 
 %files -n gstreamer-tools
-#%{_bindir}/gst-feedback
-#%{_bindir}/gst-inspect
-#%{_bindir}/gst-launch
-#%{_bindir}/gst-typefind
-#%{_bindir}/gst-xmlinspect
-#%{_bindir}/gst-xmllaunch
+%defattr(-, root, root, -)
+%{_bindir}/gst-feedback
+%{_bindir}/gst-inspect
+%{_bindir}/gst-launch
+%{_bindir}/gst-typefind
+%{_bindir}/gst-xmlinspect
+%{_bindir}/gst-xmllaunch
 
 %files devel
+%defattr(-, root, root, -)
 %dir %{_includedir}/gstreamer-%{majorminor}
 %dir %{_includedir}/gstreamer-%{majorminor}/gst
-%dir %{_includedir}/gstreamer-%{majorminor}/gst/base
-%dir %{_includedir}/gstreamer-%{majorminor}/gst/check
-%dir %{_includedir}/gstreamer-%{majorminor}/gst/controller
-%dir %{_includedir}/gstreamer-%{majorminor}/gst/net
 %{_includedir}/gstreamer-%{majorminor}/gst/*.h
-%{_includedir}/gstreamer-%{majorminor}/gst/base/*.h
-%{_includedir}/gstreamer-%{majorminor}/gst/check/*.h
-%{_includedir}/gstreamer-%{majorminor}/gst/controller/*.h
-%{_includedir}/gstreamer-%{majorminor}/gst/net/*.h
+
+%{_includedir}/gstreamer-%{majorminor}/gst/base
+%{_includedir}/gstreamer-%{majorminor}/gst/check
+%{_includedir}/gstreamer-%{majorminor}/gst/controller
+%{_includedir}/gstreamer-%{majorminor}/gst/dataprotocol
+%{_includedir}/gstreamer-%{majorminor}/gst/net
 
 %{_libdir}/libgstreamer-%{majorminor}.so
+%{_libdir}/libgstdataprotocol-%{majorminor}.so
 %{_libdir}/libgstbase-%{majorminor}.so
 %{_libdir}/libgstcheck-%{majorminor}.so*
 %{_libdir}/libgstcontroller-%{majorminor}.so
 %{_libdir}/libgstnet-%{majorminor}.so
 
-%{_datadir}/gir-1.0/Gst-%{majorminor}.gir
-%{_datadir}/gir-1.0/GstBase-%{majorminor}.gir
-%{_datadir}/gir-1.0/GstCheck-%{majorminor}.gir
-%{_datadir}/gir-1.0/GstController-%{majorminor}.gir
-%{_datadir}/gir-1.0/GstNet-%{majorminor}.gir
+%{_datadir}/gir-1.0/Gst-0.10.gir
+%{_datadir}/gir-1.0/GstBase-0.10.gir
+%{_datadir}/gir-1.0/GstCheck-0.10.gir
+%{_datadir}/gir-1.0/GstController-0.10.gir
+%{_datadir}/gir-1.0/GstNet-0.10.gir
 
 %{_datadir}/aclocal/gst-element-check-%{majorminor}.m4
 %{_libdir}/pkgconfig/gstreamer-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-base-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-controller-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-check-%{majorminor}.pc
+%{_libdir}/pkgconfig/gstreamer-dataprotocol-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-net-%{majorminor}.pc
 
 %{_rpmconfigdir}/gstreamer.prov
 %{_rpmconfigdir}/fileattrs/gstreamer.attr
 
 %files devel-docs
+%defattr(-, root, root, -)
 %doc %{_datadir}/gtk-doc/html/gstreamer-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gstreamer-libs-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
-* Mon Jul  9 2012 Brian Pepple <bpepple@fedoraproject.org> - 0.11.92-1
-- Update to 0.11.92.
-- Drop clean section. No longer needed.
-- Bump minimum version of gobject-introspection and glib2.
-- Disable building static libs.
-- Fix gobject-introspection macro.
-- Drop Buildroot. No longer needed.
-
 * Tue Feb 28 2012 Benjamin Otte <otte@redhat.com> 0.10.36-1
 - Update to 0.10.36
 
