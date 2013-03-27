@@ -53,7 +53,7 @@ BuildRequires:  netpbm-progs
 BuildRequires:  tetex-dvips
 BuildRequires:  ghostscript
 BuildRequires:  PyXML
-%if 0!%{?rhel}
+%if !0%{?rhel}
 BuildRequires:  xfig
 %endif
 
