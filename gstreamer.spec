@@ -49,11 +49,13 @@ BuildRequires:  docbook-style-dsssl
 BuildRequires:  docbook-style-xsl
 BuildRequires:  docbook-utils
 BuildRequires:  transfig
-BuildRequires:  xfig
 BuildRequires:  netpbm-progs
 BuildRequires:  tetex-dvips
 BuildRequires:  ghostscript
 BuildRequires:  PyXML
+%if 0!%{?rhel}
+BuildRequires:  xfig
+%endif
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -241,6 +243,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Wed Mar 27 2013 Adam Jackson <ajax@redhat.com> 0.10.36-3
+- Tweak BRs for RHEL
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.36-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
