@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.36
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -28,7 +28,7 @@ BuildRequires:  check-devel
 BuildRequires:  gtk-doc >= 1.3
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
-BuildRequires:  gobject-introspection-devel >= %{_gobject_introspection}
+BuildRequires:  gobject-introspection-devel >= %{_gobject-introspection}
 # We need to use the system libtool or else we end up with RPATHs
 BuildRequires:  libtool
 
@@ -243,6 +243,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Wed Jul 17 2013 Matthias Clasen <mclasen@redhat.com> 0.10.36-4
+- Fix a bogus BR found by rpmdiff
+
 * Wed Mar 27 2013 Adam Jackson <ajax@redhat.com> 0.10.36-3
 - Tweak BRs for RHEL
 
