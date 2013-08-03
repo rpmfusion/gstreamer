@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.36
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -243,6 +243,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.36-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Wed Jul 17 2013 Matthias Clasen <mclasen@redhat.com> 0.10.36-4
 - Fix a bogus BR found by rpmdiff
 
