@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.36
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -52,7 +52,6 @@ BuildRequires:  transfig
 BuildRequires:  netpbm-progs
 BuildRequires:  tetex-dvips
 BuildRequires:  ghostscript
-BuildRequires:  PyXML
 %if !0%{?rhel}
 BuildRequires:  xfig
 %endif
@@ -243,6 +242,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Mon Oct 14 2013 Dan Horák <dan[at]danny.cz> - 0.10.36-6
+- drop BR: PyXML (https://fedoraproject.org/wiki/Features/RemovePyXML), fixes #992438
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.36-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
