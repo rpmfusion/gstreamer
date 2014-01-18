@@ -3,11 +3,11 @@
 
 %define         _glib2                  2.22
 %define         _libxml2                2.4.0
-%define         _gobject-introspection  0.6.3
+%define         _gobject_introspection  0.6.3
 
 Name:           %{gstreamer}
 Version:        0.10.36
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -15,6 +15,8 @@ License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 #Source:         http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.xz
 Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
+# http://cgit.freedesktop.org/gstreamer/gstreamer/patch/?id=60516f4
+Patch0:         gstreamer-0.10.36-bison3.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       gstreamer-tools >= %{version}
@@ -28,7 +30,7 @@ BuildRequires:  check-devel
 BuildRequires:  gtk-doc >= 1.3
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
-BuildRequires:  gobject-introspection-devel >= %{_gobject-introspection}
+BuildRequires:  gobject-introspection-devel >= %{_gobject_introspection}
 # We need to use the system libtool or else we end up with RPATHs
 BuildRequires:  libtool
 
@@ -117,13 +119,13 @@ with different major/minor versions of GStreamer.
 
 %prep
 %setup -q
-
+%patch0 -p1 -b .bison3
 %patch1 -p1 -b .rpm-provides
 
 %build
 %configure \
-  --with-package-name='Fedora Core gstreamer package' \
-  --with-package-origin='http://download.fedora.redhat.com/fedora' \
+  --with-package-name='Fedora GStreamer package' \
+  --with-package-origin='http://download.fedoraproject.org' \
   --enable-gtk-doc \
   --enable-debug \
   --disable-tests --disable-examples
@@ -158,7 +160,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f gstreamer-%{majorminor}.lang
 %defattr(-, root, root, -)
-%doc AUTHORS COPYING NEWS README RELEASE TODO
+%doc AUTHORS COPYING NEWS README RELEASE
 %{_libdir}/libgstreamer-%{majorminor}.so.*
 %{_libdir}/libgstbase-%{majorminor}.so.*
 %{_libdir}/libgstcontroller-%{majorminor}.so.*
@@ -242,6 +244,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Fri Jan 17 2014 Ville Skyttä <ville.skytta@iki.fi> - 0.10.36-7
+- Fix build with bison 3 (upstream patch).
+- Sync package-name/origin with gstreamer1.
+- Fix gobject-introspection dep version.
+- Drop TODO from docs.
+- Fix bogus dates in %%changelog.
+
 * Mon Oct 14 2013 Dan Horák <dan[at]danny.cz> - 0.10.36-6
 - drop BR: PyXML (https://fedoraproject.org/wiki/Features/RemovePyXML), fixes #992438
 
@@ -342,7 +351,7 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Apr 27 2010 Benjamin Otte <otte@redhat.com> 0.10.28.3-2
 - Make a noarch devel-docs subpackage to avoid conflicts
 
-* Thu Apr 26 2010 Benjamin Otte <otte@redhat.com> 0.10.28.3-1
+* Mon Apr 26 2010 Benjamin Otte <otte@redhat.com> 0.10.28.3-1
 - Update pre-release
 
 * Thu Apr 15 2010 Benjamin Otte <otte@redhat.com> 0.10.28.2-1
@@ -367,7 +376,7 @@ rm -rf $RPM_BUILD_ROOT
 * Fri Feb 19 2010 Benjamin Otte <otte@redhat.com> 0.10.26.2-1
 - Update to pre-release
 
-* Fri Feb 11 2010 Benjamin Otte <otte@redhat.com> 0.10.26-1
+* Thu Feb 11 2010 Benjamin Otte <otte@redhat.com> 0.10.26-1
 - Update to 0.10.26
 
 * Fri Feb 05 2010 Benjamin Otte <otte@redhat.com> 0.10.25.3-1
