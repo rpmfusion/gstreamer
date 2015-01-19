@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.36
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -33,6 +33,7 @@ BuildRequires:  pkgconfig
 BuildRequires:  gobject-introspection-devel >= %{_gobject_introspection}
 # We need to use the system libtool or else we end up with RPATHs
 BuildRequires:  libtool
+BuildRequires:  chrpath
 
 # because AM_PROG_LIBTOOL was used in configure.ac
 BuildRequires:  gcc-c++
@@ -137,6 +138,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # Install doc temporarily in order to be included later by rpm
 make install DESTDIR=$RPM_BUILD_ROOT
+
+# Remove rpath.
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstbase-0.10.so.*
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstcoreelements.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstcoreindexers.so
 
 %find_lang gstreamer-%{majorminor}
 # Clean out files that should not be part of the rpm. 
@@ -244,6 +250,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Mon Jan 19 2015 Wim Taymans <wtaymans@redhat.com> - 0.10.36-11
+- Remove rpath. Fixes #1154695
+
 * Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.36-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
