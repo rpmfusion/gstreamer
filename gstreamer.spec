@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.36
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -250,6 +250,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Sat Feb 21 2015 Till Maas <opensource@till.name> - 0.10.36-12
+- Rebuilt for Fedora 23 Change
+  https://fedoraproject.org/wiki/Changes/Harden_all_packages_with_position-independent_code
+
 * Mon Jan 19 2015 Wim Taymans <wtaymans@redhat.com> - 0.10.36-11
 - Remove rpath. Fixes #1154695
 
