@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.36
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -40,6 +40,7 @@ BuildRequires:  gcc-c++
 
 # For the GStreamer RPM provides
 Patch1:         gstreamer-inspect-rpm-format.patch
+Patch2:         fix-docs.patch
 Source1:        gstreamer.prov
 Source2:        gstreamer.attr
 
@@ -122,6 +123,7 @@ with different major/minor versions of GStreamer.
 %setup -q
 %patch0 -p1 -b .bison3
 %patch1 -p1 -b .rpm-provides
+%patch2 -p1 -b .fix-docs
 
 %build
 %configure \
@@ -250,6 +252,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Mon Dec 19 2016 Wim Taymans <wtaymans@redhat.com> - 0.10.36-15
+- Fix docs
+
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.36-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
