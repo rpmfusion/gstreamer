@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.36
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -252,6 +252,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.36-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
+
 * Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.36-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
