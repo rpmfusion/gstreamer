@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.36
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 Group:          Applications/Multimedia
@@ -252,6 +252,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Fri Feb 09 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.10.36-20
+- Escape macros in %%changelog
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.36-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
@@ -813,7 +816,7 @@ rm -rf $RPM_BUILD_ROOT
 - add BuildRequires for these two libs
 
 * Sun Mar 3 2002 Thomas Vander Stichele <thomas@apestaart.org>
-- put html docs in canonical place, avoiding %doc erasure
+- put html docs in canonical place, avoiding %%doc erasure
 - added devhelp support, current install of it is hackish
 
 * Sat Mar 2 2002 Christian Schaller <Uraeus@linuxrising.org>
