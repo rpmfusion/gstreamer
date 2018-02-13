@@ -17,7 +17,6 @@ URL:            http://gstreamer.freedesktop.org/
 Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
 # http://cgit.freedesktop.org/gstreamer/gstreamer/patch/?id=60516f4
 Patch0:         gstreamer-0.10.36-bison3.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       gstreamer-tools >= %{version}
 
