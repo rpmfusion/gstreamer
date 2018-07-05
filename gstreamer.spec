@@ -163,7 +163,6 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %postun -p /sbin/ldconfig
 
 %files -f gstreamer-%{majorminor}.lang
-%defattr(-, root, root, -)
 %doc AUTHORS COPYING NEWS README RELEASE
 %{_libdir}/libgstreamer-%{majorminor}.so.*
 %{_libdir}/libgstbase-%{majorminor}.so.*
@@ -197,7 +196,6 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %doc %{_mandir}/man1/gst-xmllaunch-%{majorminor}.*
 
 %files -n gstreamer-tools
-%defattr(-, root, root, -)
 %{_bindir}/gst-feedback
 %{_bindir}/gst-inspect
 %{_bindir}/gst-launch
@@ -206,7 +204,6 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %{_bindir}/gst-xmllaunch
 
 %files devel
-%defattr(-, root, root, -)
 %dir %{_includedir}/gstreamer-%{majorminor}
 %dir %{_includedir}/gstreamer-%{majorminor}/gst
 %{_includedir}/gstreamer-%{majorminor}/gst/*.h
@@ -242,7 +239,6 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %{_rpmconfigdir}/fileattrs/gstreamer.attr
 
 %files devel-docs
-%defattr(-, root, root, -)
 %doc %{_datadir}/gtk-doc/html/gstreamer-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gstreamer-libs-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
