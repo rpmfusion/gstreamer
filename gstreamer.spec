@@ -158,9 +158,7 @@ install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_rpmconfigdir}/gstreamer.prov
 # Add the gstreamer plugin file attribute entry (rpm >= 4.9.0)
 install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer.attr
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 %files -f gstreamer-%{majorminor}.lang
 %doc AUTHORS COPYING NEWS README RELEASE
