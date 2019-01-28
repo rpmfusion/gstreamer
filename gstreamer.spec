@@ -10,7 +10,6 @@ Version:        0.10.36
 Release:        21%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
-Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 #Source:         http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.xz
@@ -69,7 +68,6 @@ plugins.
 
 %package devel
 Summary:        Libraries/include files for GStreamer streaming media framework
-Group:          Development/Libraries
 
 Requires:       %{name} = %{version}-%{release}
 Requires:       glib2-devel >= %{_glib2}
@@ -91,7 +89,6 @@ documentation packages for any plugins you intend to use.
 
 %package devel-docs
 Summary: Developer documentation for GStreamer streaming media framework
-Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 # for /usr/share/gtk-doc/html
 Requires: gtk-doc
@@ -103,7 +100,6 @@ media framework.
 
 %package -n gstreamer-tools
 Summary:        common tools and files for GStreamer streaming media framework
-Group:          Applications/Multimedia
 # gst-feedback uses these
 Requires:       which, pkgconfig
 
