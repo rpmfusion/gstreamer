@@ -7,12 +7,12 @@
 
 Name:           %{gstreamer}
 Version:        0.10.36
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
-#Source:         http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%{version}.tar.xz
+#Source:         http://gstreamer.freedesktop.org/src/gstreamer/pre/gstreamer-%%{version}.tar.xz
 Source:         http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
 # http://cgit.freedesktop.org/gstreamer/gstreamer/patch/?id=60516f4
 Patch0:         gstreamer-0.10.36-bison3.patch
@@ -124,7 +124,6 @@ with different major/minor versions of GStreamer.
 %configure \
   --with-package-name='Fedora GStreamer package' \
   --with-package-origin='http://download.fedoraproject.org' \
-  --enable-gtk-doc \
   --enable-debug \
   --disable-tests --disable-examples
 
@@ -238,6 +237,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Fri Sep  6 2019 Tom Callaway <spot@fedoraproject.org> - 0.10.36-24
+- disable gtk-docs
+
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.36-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
