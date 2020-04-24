@@ -7,7 +7,7 @@
 
 Name:           %{gstreamer}
 Version:        0.10.36
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -237,6 +237,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
 
 %changelog
+* Fri Apr 24 2020 Dominik 'Rathann' Mierzejewski <rpm@greysector.net> - 0.10.36-27
+- rebuilt to get around fedora-obsolete-packages-32
+
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.36-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
